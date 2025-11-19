@@ -67,6 +67,7 @@
     padding-left: 10px;
     border-radius: 20px;
     border:1px solid #8C8C8C;
+    outline: none;
 }
 
 .loginmiddle input::placeholder {
@@ -94,6 +95,7 @@
     color:white;
     font-size: 18px;
     font-weight: bold;
+    cursor: pointer;
 }
 /* -------------------------------------------------- */
 /*버튼 아래 나머지*/

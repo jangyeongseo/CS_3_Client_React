@@ -90,6 +90,11 @@
     font-size: 16px;
     color:white;
     margin-left: 15px;
+    cursor: pointer;
+}
+
+.dlswmd:hover {
+    background-color: #F0D827;
 }
 
 .idmiddletwo {
@@ -138,6 +143,7 @@
     background-color: #B9B9B9;
     font-size: 18px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .idok {
@@ -146,11 +152,16 @@
     border-radius: 30px;
     border:none;
     color:white;
+    background-color: #B9B9B9;
     background-color: #F0D827;
     font-size: 18px;
     font-weight: bold;
+    cursor: pointer;
 }
 
+.idd:hover {
+    background-color: #F0D827;
+}
 /*---------------------------------------------------------------------*/
 /* 완료 누르면 나오는 비밀번호 재설정 창 */
 /* .idcheckboxt {
@@ -214,6 +225,7 @@
     border:1px solid #8C8C8C;
     padding-left: 10px;
     color:#8C8C8C;
+    outline: none;
 }
 
 .newpwt::placeholder {
@@ -238,6 +250,7 @@
     background-color: #B9B9B9;
     font-size: 18px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .idokt {
@@ -246,7 +259,13 @@
     border-radius: 30px;
     border:none;
     color:white;
+    background-color: #B9B9B9;
     background-color: #F0D827;
     font-size: 18px;
     font-weight: bold;
+    cursor: pointer;
+}
+
+.iddt:hover {
+    background-color: #F0D827;
 }

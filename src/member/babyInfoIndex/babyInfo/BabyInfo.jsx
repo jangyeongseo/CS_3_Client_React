@@ -1,9 +1,11 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { useState } from "react";
 import styles from "./BabyInfo.module.css";
 
 //아기 마이페이지 왼쪽 사진쪽
 const BabyInfo = ()=>{
 
+        const [selectedGender, setSelectedGender] = useState(""); // "", "미정", "남자", "여자"
 
 return(
     <div className={styles.rightcontainer}>
@@ -23,14 +25,29 @@ return(
             </div>
 
             <div className={styles.sex}>
-                <h1 className={styles.sextitle}>성별</h1>
+                    <h1 className={styles.sextitle}>성별</h1>
 
-                <div className={styles.btns}>
-                    <button className={styles.quest}>미정?</button>
-                    <button className={styles.manb}>남자</button>
-                    <button className={styles.girlb}>여자</button>
+                    <div className={styles.btns}>
+                        <button
+                            className={`${styles.quest} ${selectedGender === "미정" ? styles.active : ""}`}
+                            onClick={() => setSelectedGender("미정")}
+                        >
+                            미정?
+                        </button>
+                        <button
+                            className={`${styles.manb} ${selectedGender === "남자" ? styles.active : ""}`}
+                            onClick={() => setSelectedGender("남자")}
+                        >
+                            남자
+                        </button>
+                        <button
+                            className={`${styles.girlb} ${selectedGender === "여자" ? styles.active : ""}`}
+                            onClick={() => setSelectedGender("여자")}
+                        >
+                            여자
+                        </button>
+                    </div>
                 </div>
-            </div>
 
             <div className={styles.kg}>
                 <p>몸무게</p>
