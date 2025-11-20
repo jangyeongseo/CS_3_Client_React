@@ -92,6 +92,11 @@
     font-size: 16px;
     color: white;
     margin-left: 15px;
+    cursor: pointer;
+}
+
+.dlswmd:hover {
+    background-color: #F0D827;
 }
 
 .idmiddletwo {
@@ -141,17 +146,23 @@
     background-color: #B9B9B9;
     font-size: 18px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .idok {
     width: 187px;
     height: 48px;
-    border-radius: 30px;
-    border: none;
+    border-radius: 30px;border: none;
     color: white;
+    background-color: #B9B9B9;
     background-color: #F0D827;
     font-size: 18px;
     font-weight: bold;
+    cursor: pointer;
+}
+
+.idd:hover {
+    background-color: #F0D827;
 }
 
 /*---------------------------------------------------------------------*/
@@ -219,6 +230,7 @@
     border: 1px solid #8C8C8C;
     padding-left: 10px;
     color: #8C8C8C;
+    outline: none;
 }
 
 .newpwt::placeholder {
@@ -244,6 +256,7 @@
     background-color: #B9B9B9;
     font-size: 18px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .idokt {
@@ -252,15 +265,21 @@
     border-radius: 30px;
     border: none;
     color: white;
+    background-color: #B9B9B9;
     background-color: #F0D827;
     font-size: 18px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .auth {
     border: solid 1px #499ef8 !important;
 }
 
-.custom:focus{
+.custom:focus {
     outline: none;
+}
+
+.iddt:hover {
+    background-color: #F0D827;
 }

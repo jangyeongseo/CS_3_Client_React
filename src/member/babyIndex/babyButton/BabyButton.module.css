@@ -1,0 +1,68 @@
+.navigationContainer {
+  position: relative;
+  background-color: #fff;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  font-size: 16px;
+  color: #8c8c8c;
+  font-family: Inter;
+}
+
+/* buttonList: 버튼 목록 */
+.buttonList {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  align-content: center;
+  gap: 16px;
+  padding: 10px;
+  border-radius: 50px;
+  border: 1px solid #8c8c8c; /* 이거 나중에 지우기 */
+}
+
+.navButton {
+  height: 48px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 20px;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+/* 호버 시 스타일 추가 */
+.navButton:hover {
+  background-color: #adb9e3;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* iconLabelGroup: 아이콘과 레이블 그룹 */
+.iconLabelGroup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* iconCircle: 아이콘 원형 배경 */
+.iconCircle {
+  height: 30px;
+  width: 30px;
+  position: relative;
+  border-radius: 50%;
+}
+
+/* labelText: 텍스트 레이블 */
+.labelText {
+  position: relative;
+  white-space: nowrap;
+}

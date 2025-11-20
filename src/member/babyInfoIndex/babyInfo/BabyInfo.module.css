@@ -49,6 +49,7 @@
     height:48px;
     border-radius: 20px;
     border:1px solid #696B70;
+    outline: none;
 }
 
 .babyname::placeholder {
@@ -80,6 +81,7 @@
     border-radius: 20px;
     border:1px solid #696B70;
     /* border:1px solid #696B70; */
+    outline: none;
 }
 
 .babybirthday::placeholder {
@@ -110,24 +112,36 @@
 }
 
 .quest {
-    border:none;
-    background-color: #ADB9E3;
+    border:1px solid #8C8C8C;
+    /* background-color: #ADB9E3; */
+    background-color: white;
     font-size: 18px;
     font-weight: bold;
-    color:white;
+    color:#8C8C8C;
+    cursor: pointer;
 }
 
 .manb {
+    background-color: white;
     border:1px solid #8C8C8C;
+    font-weight: bold;
     font-size: 18px;
     color:#8C8C8C;
+    cursor: pointer;
 }
 
 .girlb {
+    background-color: white;
     border:1px solid #8C8C8C;
     font-size: 18px;
     font-weight: bold;
     color:#8C8C8C;
+    cursor: pointer;
+}
+
+.active {
+    background-color: #ADB9E3; /* 선택된 버튼 색상 */
+    border:none;
 }
 
 /*----------------------------------------------------*/
@@ -174,4 +188,5 @@
     color:white;
     font-size: 18px;
     font-weight: bold;
+    cursor: pointer;
 }

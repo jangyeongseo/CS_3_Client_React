@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 function useLoginBox() {
     // 로그인 준비
-    const {login, getbabySeq} = useAuthStore((state) => state);
+    const { login, getbabySeq } = useAuthStore((state) => state);
     const navigate = useNavigate();
 
     // 값 받을 준비
@@ -32,7 +32,11 @@ function useLoginBox() {
                 const babyseq = Number(resp.data.babySeq);
                 login(resp.data.token, data.id);
                 getbabySeq(babyseq);
-                navigate("/");
+                if (babyseq == 0) {
+                    navigate("/chooseType");
+                } else {
+                    navigate("/");
+                }
             })
             .catch(err => {
                 alert("아이디 또는 비밀번호가 일치하지않습니다.");

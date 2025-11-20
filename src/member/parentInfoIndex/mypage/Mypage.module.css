@@ -1,22 +1,23 @@
 .container {
-    width:50%;
-    height:100%;
+    width: 40%;
+    height: 100%;
     background-color: #FFF4D6;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 20px;
     /* border: 1px solid black; */
 }
 
 .parentpage {
-    width:90%;
-    height:90%;
+    width: 95%;
+    height: 95%;
     /* border:1px solid black; */
 }
 
 .info {
-    width:100%;
-    height:auto;
+    width: 100%;
+    height: 73%;
     /* border:1px solid black; */
 }
 
@@ -25,17 +26,17 @@
 /*회원 정보*/
 .title {
     font-size: 22px;
-    color:#696B70;
+    color: #696B70;
     font-weight: bold;
 }
 
 /*-------------------------------------------------*/
 .main {
-    width:100%;
-    height:auto;
+    width: 100%;
+    height: auto;
     margin-top: 36px;
-    display:flex;
-    flex-direction: column; 
+    display: flex;
+    flex-direction: column;
     gap: 16px;
     /* border:1px solid black; */
 }
@@ -54,8 +55,8 @@
 }
 
 .nick {
-    display:flex;
-    flex-direction: column; 
+    display: flex;
+    flex-direction: column;
     gap: 16px;
 }
 
@@ -65,19 +66,22 @@
     margin-left: 10px;
     font-weight: bold;
 }
+
 .nick input {
     border-radius: 20px;
-    height:48px;
-    border:1px solid #696B70;
+    height: 48px;
+    border: 1px solid #696B70;
     padding: 0 10px;
+    outline: none;
 }
+
 .nick input::placeholder {
     font-size: 16px;
 }
 
 .email {
-    display:flex;
-    flex-direction: column; 
+    display: flex;
+    flex-direction: column;
     gap: 16px;
 }
 
@@ -87,12 +91,15 @@
     margin-left: 10px;
     font-weight: bold;
 }
+
 .email input {
     border-radius: 20px;
-    height:48px;
-    border:1px solid #696B70;
+    height: 48px;
+    border: 1px solid #696B70;
     padding: 0 10px;
+    outline: none;
 }
+
 .email input::placeholder {
     font-size: 16px;
 }
@@ -117,7 +124,8 @@
     color: #696B70;
     font-size: 16px;
     font-weight: bold;
-    display: block;       /* label을 block으로 만들어 세로 배치 */
+    display: block;
+    /* label을 block으로 만들어 세로 배치 */
     margin-bottom: 16px;
     margin-left: 10px;
 }
@@ -125,27 +133,57 @@
 .phoneWrapper {
     display: flex;
     align-items: center;
-    gap: 10px;            /* input과 span 사이 간격 */
+    gap: 10px;
+    /* input과 span 사이 간격 */
 }
 
 .prefix {
-    width: 100px;          /* "010 -" 고정 폭 */
-    height:48px;
-    display: flex;               /* 추가 */
-    justify-content: center;     /* 가로 가운데 */
-    align-items: center;         /* 세로 가운데 */
-    text-align: center;    /* 글자 가운데 정렬 */
+    width: 100px;
+    /* "010 -" 고정 폭 */
+    height: 48px;
+    display: flex;
+    /* 추가 */
+    justify-content: center;
+    /* 가로 가운데 */
+    align-items: center;
+    /* 세로 가운데 */
+    text-align: center;
+    /* 글자 가운데 정렬 */
     font-size: 16px;
     font-weight: 400;
     border-radius: 20px;
-    background-color: white;
+    /* background-color: white; */
+    background-color: transparent;
     color: #8C8C8C;
     /* border:1px solid black; */
 }
 
+.prefixActive {
+    width: 100px;
+    /* "010 -" 고정 폭 */
+    height: 48px;
+    display: flex;
+    /* 추가 */
+    justify-content: center;
+    /* 가로 가운데 */
+    align-items: center;
+    /* 세로 가운데 */
+    text-align: center;
+    /* 글자 가운데 정렬 */
+    font-size: 16px;
+    font-weight: 400;
+    border-radius: 20px;
+    background-color: white;
+    /* background-color: transparent; */
+    color: #8C8C8C;
+}
+
+
 .dash {
-    width: 20px;           /* '-' 고정 폭 */
-    text-align: center;    /* 글자 가운데 정렬 */
+    width: 20px;
+    /* '-' 고정 폭 */
+    text-align: center;
+    /* 글자 가운데 정렬 */
     font-weight: 400;
     color: #8C8C8C;
     flex-shrink: 0;
@@ -156,11 +194,13 @@
     min-width: 0;
     height: 48px;
     border-radius: 20px;
-    border: 1px solid #8C8C8C;  /* 조금 두껍게 */
+    border: 1px solid #8C8C8C;
+    /* 조금 두껍게 */
     padding: 0 10px;
     box-sizing: border-box;
     outline: none;
     text-align: center;
+    background-color: white;
 }
 
 .phoneWrapper input::placeholder {
@@ -174,17 +214,17 @@
 /*여기부터가 이제 가족코드랑 버튼*/
 
 .fabt {
-    width:100%;
-    height:30%;
+    width: 100%;
+    height: 27%;
     display: flex;
     flex-direction: column;
-    gap:16px;
+    gap: 16px;
     position: relative;
     /* border:1px solid black; */
 }
 
 .familycode {
-    margin-top: 16px;
+    /* margin-top: 16px; */
     font-size: 18px;
     color: #696B70;
     margin-left: 10px;
@@ -198,33 +238,77 @@
 }
 
 .btwo {
-    flex:1;
+    flex: 1;
     position: absolute;
     right: 0;
-    bottom: 10px;
+    bottom: 1px;
     display: flex;
     gap: 10px;
     /* border:1px solid black; */
 }
 
 .delete {
-    width:200px;
-    height:48px;
+    width: 200px;
+    height: 48px;
     font-size: 18px;
     font-weight: bold;
     border-radius: 20px;
-    border:none;
-    background-color:#B9B9B9;
-    color:white;
+    border: none;
+    background-color: #B9B9B9;
+    color: white;
+    cursor: pointer;
+}
+
+.delete:hover {
+    background-color: #F0D827;
 }
 
 .success {
-    width:200px;
-    height:48px;
+    width: 200px;
+    height: 48px;
     font-size: 18px;
     font-weight: bold;
     border-radius: 20px;
-    border:none;
+    border: none;
+    background-color: #B9B9B9;
+    color: white;
+    cursor: pointer;
+}
+
+.success:hover {
     background-color: #F0D827;
-    color:white;
+}
+
+/*수정버튼*/
+.crbt {
+    width: 200px;
+    height: 48px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 20px;
+    border: none;
+    background-color: #F0D827;
+    color: white;
+    cursor: pointer;
+}
+
+/* 기존 input 스타일 제거 */
+.editableInput {
+    border: 1px solid #696B70;
+    border-radius: 20px;
+    height: 48px;
+    padding: 0 10px;
+    outline: none;
+}
+
+.dbValue {
+    height: 48px;
+    /* input과 동일 높이 유지 */
+    line-height: 48px;
+    /* 세로 가운데 정렬 */
+    padding: 0 10px;
+    border-radius: 20px;
+    background-color: #FFF4D6;
+    color: #696B70;
+    font-size: 16px;
 }

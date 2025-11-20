@@ -1,23 +1,29 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import BabyBox from './babyBox/BabyBox';
-import BabyArticle from './babyArticle/BabyArticle';
-import BabyButton from './babyButton/BabyButton';
-import useAuthStore from '../../store/useStore';
 
+import React, { useState } from "react";
+import BabyBox from "./babyBox/BabyBox";
+import BabyArticle from "./babyArticle/BabyArticle";
+import BabyButton from "./babyButton/BabyButton";
+import styles from "./BabyIndex.module.css";
 
-//로그인 하면 디폴트 페이지 "/"랑 라우팅 되어있음
 const BabyIndex = () => {
-    const isLogin = useAuthStore((state) => state.isLogin);
-    if (!isLogin) return;
-
-    return (
-        <div>
-            <BabyBox />{/* 애기정보 및 사진 */}
-            <BabyArticle />{/* 기사 및 지원 정보 출력 */}
-            <BabyButton />{/* 기능 버튼 */}
+  return (
+    <div className={styles.container}>
+      {/* 왼쪽: 아기 정보 + 네비바 */}
+      <div className={styles.leftSection}>
+        <div className={styles.babyBoxWrapper}>
+          <BabyBox />
         </div>
-    );
+        {/* 네비바 */}
+        <div className={styles.babyButtonWrapper}>
+          <BabyButton />
+        </div>
+      </div>
+      {/* 오른쪽: 아기 관련 기사 */}
+      <div className={styles.rightSection}>
+        <BabyArticle />
+      </div>
+    </div>
+  );
+};
 
-
-}
 export default BabyIndex;

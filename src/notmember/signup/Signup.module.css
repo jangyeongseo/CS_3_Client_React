@@ -79,6 +79,7 @@
     color:white;
     font-size: 16px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .emailauth:hover {
@@ -148,6 +149,7 @@
     color:white;
     font-size: 16px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .idauth:hover {
@@ -189,6 +191,7 @@
     color:white;
     font-size: 16px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .nicauth:hover {
@@ -302,6 +305,10 @@
 /*-----------------------------------------------------------*/
 /*가족코드 칸*/
 
+.familying {
+    /* border:1px solid black; */
+}
+
 .familying label {
     color: #8C8C8C;
     font-size: 16px;
@@ -360,21 +367,28 @@
     border-color: #499ef8;
 }
 /*-------------------------------------------------------------*/
-/*부모 선택 칸*/
+/*가족코드랑 엄마아빠 칸*/
 
 .checkAndParent {
     display: flex;
-    align-items: center; /* 세로 가운데 정렬 */
-    gap: 50px;           /* 두 영역 사이 간격 */
+    gap: 20px;           /* 두 영역 사이 간격 */
+    /* border:1px solid black; */
+    
 }
 
 .parent {
     /* height:40px; */
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 50px;
+    flex-direction: column; /* 세로 배치 */
+    gap: 15px;
+    align-items: flex-start;
     /* border:1px solid black; */
+}
+
+.parentLabels {
+    display: flex; /* 라디오 버튼들을 가로로 배치 */
+    gap: 16px; /* 버튼 사이 간격 */
 }
 
 .parent label {
@@ -391,6 +405,21 @@
     margin-right: 5px;
 }
 
+.familying {
+    flex: 1; /* 남는 공간 모두 차지 */
+}
+
+.familying input {
+    width: 100%; /* 부모 .familying 기준 100% */
+}
+
+.me {
+    /* align-items: flex-start; */
+    font-size: 16px;
+    font-weight: bold;
+    color: #8C8C8C;
+    /* border:1px solid black; */
+}
 /*-----------------------------------------------------------*/
 /*취소 완료 버튼*/
 
@@ -413,6 +442,7 @@
     color: white;
     background-color: #B9B9B9;
     /* transition: all 0.3s ease; */
+    cursor: pointer;
 }
 
 .signinbutton {
@@ -424,11 +454,12 @@
     font-weight: 700;
     border: none;
     /* cursor: pointer; */
-    background-color: #B9B9B9;
+    background-color: #F0D827;
     color:white;
+    cursor: pointer;
 }
 
-.backbutton:hover, .signinbutton:hover {
+.backbutton:hover {
     background-color: #F0D827;
 }
 
