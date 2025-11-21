@@ -113,29 +113,29 @@ const BabyArticle = () => {
   const [error, setError] = useState(null);
 
   /* ---------------- API 호출 ---------------- */
-  useEffect(() => {
-    const fetchArticles = async () => {
-      const API_URL = "/api/baby-articles"; // 실제 API URL로 변경 필요 - 백앤드 api
+  // useEffect(() => {
+  //   const fetchArticles = async () => {
+  //     const API_URL = "/api/baby-articles"; // 실제 API URL로 변경 필요 - 백앤드 api
 
-      try {
-        const response = await fetch(API_URL);
+  //     try {
+  //       const response = await fetch(API_URL);
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
+  //       if (!response.ok) {
+  //         throw new Error(`HTTP error! status: ${response.status}`);
+  //       }
 
-        const data = await response.json();
-        setArticles(data); // 기사 데이터 저장
-      } catch (e) {
-        console.error("Failed to fetch articles:", e);
-        setError("기사를 불러오는데 실패했습니다."); // 에러 메시지
-      } finally {
-        setIsLoading(false); // 로딩 종료
-      }
-    };
+  //       const data = await response.json();
+  //       setArticles(data); // 기사 데이터 저장
+  //     } catch (e) {
+  //       console.error("Failed to fetch articles:", e);
+  //       setError("기사를 불러오는데 실패했습니다."); // 에러 메시지
+  //     } finally {
+  //       setIsLoading(false); // 로딩 종료
+  //     }
+  //   };
 
-    fetchArticles();
-  }, []); // 마운트 시 한 번 실행
+  //   fetchArticles();
+  // }, []); // 마운트 시 한 번 실행
 
   /* ---------------- 로딩 / 에러 처리 ---------------- */
   if (isLoading) {

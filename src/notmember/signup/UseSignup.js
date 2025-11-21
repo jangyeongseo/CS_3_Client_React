@@ -25,6 +25,14 @@ function useSignup(navigate) {
         phone1: 0, phone2: 0, birthDate: 0, code: 0
     });
 
+    // 날짜 선택 기점 잡아주기
+    const today = new Date();
+    // 오늘 날짜
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const todayString = `${year}-${month}-${day}`;
+
     // 유효성 검사 준비
     const regexMap = {
         id: /^[a-z0-9]{5,}$/, // 소문자+숫자 최소 5글자 이상
@@ -56,7 +64,7 @@ function useSignup(navigate) {
         const isValid = regex ? regex.test(trimmedValue) : false;
         let finalIsValid = isValid;
 
-        if (name === "parentType" || name === "birthDate"){
+        if (name === "parentType" || name === "birthDate") {
             finalIsValid = value ? true : false;
         }
         if (name === "emailAuth") {
@@ -74,6 +82,7 @@ function useSignup(navigate) {
             .then(resp => {
                 alert("이메일 인증번호 발송 완료");
                 setServerAuthCode(resp.data);
+                console.log(resp.data);
             })
             .catch(err => console.log(err));
     }
@@ -113,7 +122,7 @@ function useSignup(navigate) {
     const handleComplete = () => {
         const isAllValid = Object.values(regexAuth).every(value => value === true);
         console.log(isAllValid);
-        console.log("adf",regexAuth);
+        console.log("adf", regexAuth);
         if (!isAllValid) {
             alert("모든 입력창에 알맞은 값을 입력해주세요 :)");
             return;
@@ -131,16 +140,23 @@ function useSignup(navigate) {
         };
 
         caxios.post("/user/signup", userDTO)
-            .then(resp=>{
+            .then(resp => {
                 alert("회원가입 완료! 로그인 화면으로 돌아갑니다");
                 navigate("/login");
             })
             .catch(err => console.log(err))
     }
 
+    // 엔터
+    const handleLoginKeyUp = (e) => {
+        if (e.key === 'Enter') {
+            handleComplete();
+        }
+    }
+
     return {
-        data, regexAuth, inputCount, isNoCode,
-        chackClick, emailAuthClick, handleComplete,
+        data, regexAuth, inputCount, isNoCode, todayString,
+        chackClick, emailAuthClick, handleComplete, handleLoginKeyUp,
         hendleChange, handleIntegerInput, handleCheckbox
     }
 

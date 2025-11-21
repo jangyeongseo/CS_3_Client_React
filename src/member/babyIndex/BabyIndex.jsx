@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import BabyBox from "./babyBox/BabyBox";
 import BabyArticle from "./babyArticle/BabyArticle";
@@ -17,7 +18,6 @@ const BabyIndex = () => {
           <BabyButton />
         </div>
       </div>
-
       {/* 오른쪽: 아기 관련 기사 */}
       <div className={styles.rightSection}>
         <BabyArticle />

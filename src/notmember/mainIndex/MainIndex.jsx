@@ -16,11 +16,15 @@ import BoardIndex from "../boardIndex/BoardIndex";
 import ParentInfoIndex from "../../member/parentInfoIndex/ParentInfoIndex";
 import InputBaby from "../../member/inputBaby/InputBaby";
 import styles from "./MainIndex.module.css";
+import useAuthStore from "../../store/useStore";
+import ChooseType from "../../member/chooseType/ChooseType";
 
 //메인 인덱스 페이지
 //여기서 로그인 여부에 따라서 보이고 안보이는게 다르게 만들어야함
 // "/"밑으로 들어가느 라우팅
-const MainIndex = ({ isLogin }) => {
+const MainIndex = () => {
+  const {isLogin, babySeq} = useAuthStore((state) => state);
+  
   const location = useLocation(); //현재 URL 경로
 
   // 배경 전체가 노란색이 나와야하는 경로 목록
@@ -46,7 +50,7 @@ const MainIndex = ({ isLogin }) => {
       {/*컨테이너 영역*/}
       {/*헤더 영역 : 필요시 로그인 여부 데이터 넘겨서 display none 사용하세요*/}
       <header className={styles.MemberHeader}>
-        <CommonHeader isLogin={isLogin} />
+        <CommonHeader />
       </header>
       {/*바디 영역 : 필요시 로그인 여부 데이터 넘겨서 display none 사용하세요*/}
       <div className={mainLayoutClassName}>
@@ -55,7 +59,6 @@ const MainIndex = ({ isLogin }) => {
           {/*로그인 안되어 있으면 ? 인포메이션 : 되면 베이비인덱스*/}
           <Route path="board/*" element={<BoardIndex />} /> {/*커뮤니티*/}\
           {/* 어떻게 만들어지는지 볼려고 만든거라 삭제 가능... 내가 보낼때 까먹으면 그냥 삭제해보려.. */}
-          <Route path="babyIndex/*" element={<BabyIndex />} />
           {/*-----------------------------------------------------------------------여기까지는 비회원도 접근 가능한 부분 아래는 불가하게 막아야함*/}
           <Route path="mypage" element={<ParentInfoIndex />} /> {/*회원가입*/}
           <Route path="babymypage" element={<BabyInfoIndex />} />

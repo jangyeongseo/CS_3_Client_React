@@ -3,9 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./LoginBox.module.css";
 import FindId from "../../findid/FindId";
 import FindPw from "../../findpw/FindPw";
+import useLoginBox from "./UseLoginBox";
 
-function LoginBox() {
+function LoginBox({setBabySeq}) {
 
+  const {
+    data, authAlert, handleChange, handleComplete, handleLoginKeyUp
+  } = useLoginBox(setBabySeq);
 
   return (
     <div
@@ -27,18 +31,24 @@ function LoginBox() {
           </div>
 
           <div className={styles.loginmiddle}>
-            <div className={styles.middleone}>
-              <label htmlFor="iid" >아이디</label>
-              <input type="text" id="iid" placeholder="아이디" ></input>  
+            <div className={`${styles.middleone} ${!authAlert ? "" : styles.alert }`}>
+              <label htmlFor="id" >아이디</label>
+              <input type="text" id="id" name="id" placeholder="아이디"
+              value={data.id} onChange={handleChange}/>
             </div>
-            <div className={styles.middletwo}>
-              <label htmlFor="ppw">비밀번호</label> 
-              <input type="password" id="ppw" placeholder="비밀번호" ></input>  
+            <div className={`${styles.middletwo} ${!authAlert ? "" : styles.alert }`}>
+              <label htmlFor="pw">비밀번호</label> 
+              <input type="password" id="pw" name="pw" placeholder="비밀번호"
+              value={data.pw} onChange={handleChange} onKeyUp={handleLoginKeyUp}/>
+
             </div>
           </div>
 
           <div className={styles.loginbottom}>
-            <button className={styles.logbut} >로그인</button>
+            <button className={styles.logbut}
+            onClick={handleComplete}>
+              로그인</button>
+
           </div>
 
           <p className={styles.signup}>

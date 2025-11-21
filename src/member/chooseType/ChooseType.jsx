@@ -2,9 +2,17 @@ import { useState } from "react";
 import styles from "./ChooseType.module.css";
 import babyImg from "./img/baby.png";
 import childrenImg from "./img/children.png";
+import addImg from "./img/Add.png";
+import oneImg from "./img/one.png";
+import twoImg from "./img/two.png";
+import threeImg from "./img/three.png";
+import fourImg from "./img/four.png";
+import useAuthStore from "../../store/useStore";
+import useChooseType from "./UseChooseType";
 import InputBaby from "../../member/inputBaby/InputBaby"; // InputBaby 컴포넌트 import
 
 const ChooseType = () => {
+
   const [showInputBaby, setShowInputBaby] = useState(false);
   const [babyType, setBabyType] = useState(""); // "mom" or "child"
   const [hover, setHover] = useState(false);
@@ -84,5 +92,6 @@ const ChooseType = () => {
     </div>
   );
 };
+
 
 export default ChooseType;

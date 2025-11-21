@@ -1,16 +1,28 @@
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Login from './notmember/login/Login';
 import Signup from './notmember/signup/Signup';
 import MainIndex from './notmember/mainIndex/MainIndex';
 import ChooseType from "./member/chooseType/ChooseType.jsx";
+import useAuthStore from './store/useStore.js';
 import InputBaby from "./member/inputBaby/InputBaby";
 
 function App() {
-  // TODO: 로그인 하면 true로 바뀌도록 설정 필요
-  const [isLogin, setIsLogin] = useState(false); 
+  const { login, isLogin, getbabySeq } = useAuthStore((state) => state);
+  console.log("adsf", isLogin);
+
+  useEffect(() => {
+    // 토큰 유지
+    const token = sessionStorage.getItem("token");
+    const id = sessionStorage.getItem("id");
+    const babySeq = sessionStorage.getItem("babySeq");
+    if (token) {
+      login(token, id);
+      getbabySeq(babySeq);
+    }
+  }, []);
 
   return (
     <div className="container">

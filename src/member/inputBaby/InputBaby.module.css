@@ -244,3 +244,7 @@
   border: none; /* 필요시 */
 }
 
+
+.invalid{
+    border: solid 1px #499ef8 !important;
+}

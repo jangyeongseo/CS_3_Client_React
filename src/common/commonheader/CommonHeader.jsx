@@ -1,9 +1,11 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import styles from "./CommonHeader.module.css";
-import { HelpCircle, Menu } from "lucide-react"; 
+import { HelpCircle, Menu } from "lucide-react"; // 아이콘
+import useAuthStore from "../../store/useStore";
 
 //로그인 여부에 따라 헤더 보이는것 조절 필요
 const CommonHeader = () => {
+  const isLogin = useAuthStore((state) => state.login);
   return (
     <div>
       <div className={styles.topbar}>

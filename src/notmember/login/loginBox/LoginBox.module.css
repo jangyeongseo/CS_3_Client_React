@@ -131,3 +131,7 @@
   margin: 0 8px;
   color: #999;
 }
+
+.alert input{
+    border: solid 1px #499ef8 !important;
+}
