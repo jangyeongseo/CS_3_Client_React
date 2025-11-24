@@ -1,20 +1,40 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import BabyBox from './babyBox/BabyBox';
-import BabyArticle from './babyArticle/BabyArticle';
-import BabyButton from './babyButton/BabyButton';
 
+import React, { useState } from "react";
+import BabyBox from "./babyBox/BabyBox";
+import BabyArticle from "./babyArticle/BabyArticle";
+import BabyButton from "./babyButton/BabyButton";
+import Counseling from "../../member/counseling/Counseling"; 
+import styles from "./BabyIndex.module.css";
 
-//로그인 하면 디폴트 페이지 "/"랑 라우팅 되어있음
-const BabyIndex = ()=>{
+const BabyIndex = () => {
+  const [showCounseling, setShowCounseling] = useState(false);
 
-return(
-    <div>
-        <BabyBox />
+  return (
+    <div className={styles.container}>
+      {/* 왼쪽 섹션 */}
+      <div className={styles.leftSection}>
+        <div className={styles.babyBoxWrapper}>
+          <BabyBox />
+        </div>
+        <div className={styles.babyButtonWrapper}>
+          {/* 긴급 상담 클릭 시 showCounseling true */}
+          <BabyButton onEmergencyClick={() => setShowCounseling(true)} />
+        </div>
+      </div>
+      {/* 오른쪽 섹션 */}
+
+      <div className={styles.rightSection}>
         <BabyArticle />
-        <BabyButton />
+      </div>
+
+      {/* 전체 화면을 덮는 긴급 상담 */}
+      {showCounseling && (
+        <div className={styles.counselingOverlay}>
+          <Counseling onClose={() => setShowCounseling(false)} />
+        </div>
+      )}
     </div>
-);
+  );
+};
 
-
-}
 export default BabyIndex;

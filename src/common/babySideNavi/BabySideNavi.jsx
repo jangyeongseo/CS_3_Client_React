@@ -1,24 +1,35 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import BabyController from './babyController/BabyController';
+import styles from "./BabySideNavi.module.css";
+import { X } from "lucide-react";
+import BabyController from "./babyController/BabyController";
+import BabyButton from "../../member/babyIndex/babyButton/BabyButton";
 
+const BabySideNavi = ({ onClose }) => {
+  return (
+    <>
+      {/* 배경 오버레이 */}
+      <div className={styles.overlay} onClick={onClose}></div>
 
-//아기 선택 사이드네비
-const BabySideNavi = ()=>{
-return(
-    <div>
-        <div >
-            {/*위측 아기용 버튼(산모수첩, 챗봇 등등으로 이동용)*/}
-            여기다가 아기페이지 내에서 이동할 버튼 만들기
+      {/* 사이드바 패널 */}
+      <div className={styles.sidContanier}>
+        {/* 닫기 버튼 */}
+        <div className={styles.del}>
+          <X className={styles.helpIcon} onClick={onClose} />
         </div>
 
-
-        <div>
-            {/*아래쪽 아기 추가 및 바꾸는 버튼*/}
-            <BabyController />
+        {/* 카테고리 (세로 모드) */}
+        <div className={styles.sidnavi}>
+          {/* isVertical={true} - 세로 형태의 디자인 적용 */}
+          <BabyButton isVertical={true} />
         </div>
-    </div>
-);
 
+        {/* 아기 리스트 (사이드바 모드 + 스크롤) */}
+        <div className={styles.sidController}>
+          {/* isSidebar={true} - 가로 바 형태의 디자인 적용 */}
+          <BabyController isSidebar={true} />
+        </div>
+      </div>
+    </>
+  );
+};
 
-}
 export default BabySideNavi;

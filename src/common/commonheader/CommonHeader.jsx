@@ -1,35 +1,58 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import styles from "./CommonHeader.module.css";
-import { HelpCircle, Menu } from "lucide-react"; 
+import { HelpCircle, Menu } from "lucide-react";
+import log from "./imgs/log.svg";
+import BabySideNavi from "../babySideNavi/BabySideNavi"; // 사이드바 컴포넌트 임포트
 
-//로그인 여부에 따라 헤더 보이는것 조절 필요
 const CommonHeader = () => {
+  // 사이드바 표시 상태 관리: 기본값은 닫힘
+  const [isNavOpen, setIsNavOpen] = useState(false);
+
+  // 사이드바 토글 함수
+  const toggleSideNav = () => {
+    setIsNavOpen(!isNavOpen);
+  };
+
+  // BabySideNavi 내부에서 닫기 버튼/오버레이 클릭 시 호출될 함수
+  const closeSideNav = () => {
+    setIsNavOpen(false);
+  };
+
   return (
     <div>
+      {isNavOpen && <BabySideNavi onClose={closeSideNav} />}
       <div className={styles.topbar}>
-        <div className={styles.frameParent}>
-          <div className={styles.frameGroup}>
-            {/* Left Menu */}
-            <div className={styles.leftSection}>
-              {/* 로고 이미지 */}
-              <img className={styles.logoIcon} alt="" />
+        <div className={styles.headerContentWrapper}>
+          {/* Left Section (로고 및 메뉴) */}
+          <div className={styles.leftSection}>
+            {/* 로고 (홈 링크) */}
+            <Link to="/">
+              <img src={log} className={styles.logoIcon} alt="로고 이미지" />
+            </Link>
 
-              {/* 부모님 메뉴 */}
-              <div className={styles.menuItems}>
-                <div className={styles.menuActive}>
-                  <b className={styles.menuItem}>커뮤니티</b>
-                </div>
-                <div className={styles.menuItemBox}>
-                  <span className={styles.menuItem}>마이페이지</span>
-                </div>
+            <div className={styles.menuItems}>
+              {/* 활성 메뉴 예시 */}
+              <div className={styles.menuActive}>
+                <b className={styles.menuItem}>커뮤니티</b>
+              </div>
+              {/* 비활성 메뉴 예시 */}
+              <div className={styles.menuItemBox}>
+                <span className={styles.menuItem}>마이페이지</span>
               </div>
             </div>
+          </div>
 
-            {/* Right Icons */}
-            <div className={styles.rightSection}>
+          <div className={styles.rightSection}>
+            {/* 도움말 아이콘 */}
+            <button className={styles.iconButton}>
               <HelpCircle className={styles.helpIcon} />
+            </button>
+
+            {/* 메뉴 아이콘 (사이드바 토글 버튼) */}
+            <button onClick={toggleSideNav} className={styles.iconButton}>
               <Menu className={styles.menuIcon} />
-            </div>
+            </button>
           </div>
         </div>
       </div>
