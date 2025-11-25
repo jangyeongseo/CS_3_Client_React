@@ -11,7 +11,7 @@ import three from "./img/three.png";
 import four from "./img/four.png";
 
 import InputBaby from "../../../member/inputBaby/InputBaby";
-import useBabyController from "./useBabyController";
+import useBabyController from "./UseBabyController";
 
 const BabyController = () => {
   const [showModal, setShowModal] = useState(false); // 아기 추가 모달
@@ -23,7 +23,7 @@ const BabyController = () => {
     "one": one,
     "two": two,
     "three": three,
-    "four" : four
+    "four": four
   };
 
   const {
@@ -39,7 +39,7 @@ const BabyController = () => {
         <div className={styles.one}>
           <div className={styles.babyclick}>
             {data.map((baby, index) => (
-              <button key={index} className={`${babySeq == baby.baby_seq ? styles.ingbaby1: styles.ingbaby}`}
+              <button key={index} className={`${babySeq == baby.baby_seq ? styles.ingbaby1 : styles.ingbaby}`}
                 onClick={() => changeBaby(baby.baby_seq)}>
                 <div className={styles.bbb}>
                   <img src={babyImages[baby.image_name]} alt="babyface" className={styles.babyfaceImage} />

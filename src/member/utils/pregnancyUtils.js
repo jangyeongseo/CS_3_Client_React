@@ -28,15 +28,19 @@ const getDayDifference = (dateA, dateB) => {
  * @returns {number} 계산된 임신 주차 (1 ~ 42)
  */
 export const calculateFetalWeek = (dueDateStr, measureDateStr) => {
+console.log("들어옴");
+
     const dueDate = parseDate(dueDateStr);
     const measureDate = parseDate(measureDateStr);
-
+    console.log("calculateFetalWeek INPUT: dueDate =", dueDateStr, ", measureDate =", measureDateStr);
     // 임신 시작일 (Conception Start) = dueDate - 40주
     const conceptionStart = new Date(dueDate.getTime() - (TOTAL_FETAL_DAYS * MS_PER_DAY));
+
+    console.log("이건 뭐지 : "+conceptionStart);
     
     // 임신 시작일로부터 측정일까지 지난 일수 계산
     let daysPassed = getDayDifference(measureDate, conceptionStart);
-    
+    console.log("일수 계산일 : " + daysPassed)
     if (daysPassed < 0) daysPassed = 0;
 
     // 주차 계산: (일수 / 7) + 1

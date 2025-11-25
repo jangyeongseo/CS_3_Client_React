@@ -6,7 +6,9 @@ import ChartInput from "./chartInput/ChartInput"; // 오른쪽 입력 폼 컴포
 import styles from "./ChartIndex.module.css";
 import { FETAL_STANDARDS } from "./FetalStandardData";
 import { caxios } from "../../config/config";
-
+import useAuthStore from "../../store/useStore";
+import { useChartIndex } from "./UseChartIndex";
+import { fetalWeekStartEnd, infantWeekStartEnd } from "../utils/pregnancyUtils";
 const ChartIndex = () => {
   // 상단 메뉴 버튼: 임산모
   const fetalMenuList = [
@@ -17,17 +19,16 @@ const ChartIndex = () => {
     "복부둘레",
     "허벅지 길이",
   ];
-
   // 상단 메뉴 버튼: 육아
   const babyMenuList = ["성장", "몸무게", "키"];
 
   // true: 임산모/태아, false: 육아
   const [isFetalMode, setIsFetalMode] = useState(true);
 
-  const [currentWeek, setCurrentWeek] = useState(14); // 현재 주차 상태
+  const [currentWeek, setCurrentWeek] = useState(0); // 현재 주차 상태
   const [activeMenu, setActiveMenu] = useState(0); // 활성 메뉴 인덱스
 
-  const [actualData, setActualData] = useState(null); // 실제 입력 데이터 (API 응답)
+  const [actualData, setActualData] = useState({}); // 실제 입력 데이터 (API 응답)
 
   // 현재 모드에 따라 사용될 메뉴 리스트를 동적으로 결정
   const currentMenuList = isFetalMode ? fetalMenuList : babyMenuList;
@@ -39,62 +40,105 @@ const ChartIndex = () => {
     if (isFetalMode) {
       return FETAL_STANDARDS[currentWeek];
     }
-    return null; // 육아 모드일 때는 태아 표준 데이터는 사용하지 않음
+    return null; // 육아 모드일 때는 태아 표준 데이터 는 사용하지 않음
   }, [currentWeek, isFetalMode]); // isFetalMode가 바뀔 때 useMemo 재계산
 
   console.log(activeMenu);
+  console.log("DEBUG — currentWeek:", currentWeek);
+  console.log("DEBUG — currentStandardData:", currentStandardData);
+  console.log("DEBUG — actualData:", actualData);
+  const {
+    babySeq,
+    babyInfo,
+    menuList,
+  } = useChartIndex(currentWeek, setCurrentWeek);
 
   // 데이터 조회 비동기 로직 (caxios 사용)
   //육아 모드 시 API 엔드포인트와 파라미터(week 대신 month 등)가 달짐
-  useEffect(() => {
-    // 육아 모드일 때는 다른 API를 호출하거나 이 효과 건너뜀
-    if (!isFetalMode) {
-      setActualData({}); // 육아 데이터는 다른 곳에서 가져온다고 가정
-      return;
-    }
+  // useEffect(() => {
+  //   // 육아 모드일 때는 다른 API를 호출하거나 이 효과 건너뜀
+  //   if (!isFetalMode) {
+  //     setActualData({}); // 육아 데이터는 다른 곳에서 가져온다고 가정
+  //     return;
+  //   }
 
-    const fetchCurrentData = async () => {
-      setActualData(null); // 데이터 로딩 시작
+  //   const fetchCurrentData = async () => {
+  //     setActualData(null); // 데이터 로딩 시작
+
+  //     try {
+  //       const response = await caxios.get(`/chart/${babySeq}`, {
+  //         params: {
+  //           babyId: 1, // 실제 아기 ID로 대체
+  //           week: currentWeek,
+  //         },
+  //       });
+
+  //       const data = response.data;
+
+  //       if (!data || Object.keys(data).length === 0) {
+  //         setActualData({});
+  //         return;
+  //       }
+
+  //       setActualData(data);
+  //     } catch (error) {
+  //       if (error.response && error.response.status === 404) {
+  //         setActualData({});
+  //       } else {
+  //         console.error("데이터 조회 오류:", error);
+  //         setActualData({});
+  //       }
+  //     }
+  //   };
+
+  //   fetchCurrentData();
+  // }, [currentWeek, isFetalMode]); // currentWeek 또는 isFetalMode가 바뀔 때 실행
+
+  useEffect(() => {
+    if (!babyInfo) return;
+
+    const fetchActualData = async () => {
+      if (!isFetalMode) {
+        setActualData({}); // 육아 모드는 빈 객체
+        return;
+      }
+
+      setActualData(null); // 로딩 시작
 
       try {
-        const response = await caxios.get(`/api/fetal/measurement/current`, {
-          params: {
-            babyId: 1, // 실제 아기 ID로 대체
-            week: currentWeek,
-          },
+        const { babySeq, status, birthDate } = babyInfo;
+        const week = currentWeek;
+
+        let startDate, endDate;
+        if (status.toLowerCase() === "fetus") {
+          [startDate, endDate] = fetalWeekStartEnd(birthDate, week);
+        } else {
+          [startDate, endDate] = infantWeekStartEnd(birthDate, week);
+        }
+
+        const response = await caxios.get(`/chart/total`, {
+          params: { babyId: babySeq, week, startDate, endDate },
         });
 
-        const data = response.data;
+        setActualData(response.data || {});
+        console.log("🟢 Actual Data 로딩 완료:", response.data);
 
-        if (!data || Object.keys(data).length === 0) {
-          setActualData({});
-          return;
-        }
-
-        setActualData(data);
       } catch (error) {
-        if (error.response && error.response.status === 404) {
-          setActualData({});
-        } else {
-          console.error("데이터 조회 오류:", error);
-          setActualData({});
-        }
+        console.error("Actual Data 조회 실패:", error);
+        setActualData({});
       }
     };
 
-    fetchCurrentData();
-  }, [currentWeek, isFetalMode]); // currentWeek 또는 isFetalMode가 바뀔 때 실행
+    fetchActualData();
+  }, [babyInfo, currentWeek, isFetalMode]);
+
 
   // 로딩 상태 처리
   // 임산모 모드에서만 standardData의 유효성을 검사
   const isLoading =
     actualData === null || (isFetalMode && !currentStandardData);
 
-  if (currentWeek === 0 || isLoading) {
-    return (
-      <div className={styles.loading}>데이터를 계산하고 로딩 중입니다...</div>
-    );
-  }
+
 
   return (
     <div className={styles.body}>

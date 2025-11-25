@@ -1,5 +1,5 @@
 export const UseTotalChart = (currentWeek, standardData, actualData) => {
-    if (!standardData || !actualData) {
+    if (!standardData) {
         return {};
     }
 
@@ -11,8 +11,7 @@ export const UseTotalChart = (currentWeek, standardData, actualData) => {
     }));
     
     const averageValues = Object.keys(standardData).map(key => standardData[key].avg);
-    const actualValues = Object.keys(standardData).map(key => actualData[key] || 0);
-
+    const actualValues = Object.keys(standardData).map(key => actualData?.[key] ??   0);
     return {
         title: { text: `임신 ${currentWeek}주 태아 성장 분석`, left: 'center' },
         legend: { data: ['내 아기 측정치', '표준 평균'], bottom: 0 },

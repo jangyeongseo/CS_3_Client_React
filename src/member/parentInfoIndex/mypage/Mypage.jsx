@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./Mypage.module.css";
-import useMypage from "./useMypage"; // 첫 글자 대문자로
+import useMypage from "./UseMypage"; // 첫 글자 대문자로
 const Mypage = () => {
   const [isEditing, setIsEditing] = useState(false);
   const {
@@ -29,7 +29,7 @@ const Mypage = () => {
                     value={data.nickname}
                     onChange={hendleChange}
                     className={`${styles.editableInputHalf}
-                     ${!regexAuth.nickname || !regexAuth.nickNameChack && !regexAuth.nickNameChack && inputCount.nickname > 0 ? styles.auth : ""}`}
+                     ${!regexAuth.nickname && !regexAuth.nickNameChack && !regexAuth.nickNameChack && inputCount.nickname > 0 ? styles.auth : ""}`}
                   />
                   <button
                     className={styles.checkButton}

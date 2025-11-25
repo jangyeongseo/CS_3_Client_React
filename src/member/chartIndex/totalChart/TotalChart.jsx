@@ -9,6 +9,15 @@ const TotalChart = ({ menuList, activeMenu, currentWeek, standardData, actualDat
 
   //  로직 파일에서 옵션을 가져옵니다.
   const option = UseTotalChart(currentWeek, standardData, actualData);
+
+  console.log("주차 불러오기", currentWeek);
+
+  if (!currentWeek > 0) {
+    return (
+      <div className={styles.loading}>데이터를 계산하고 로딩 중입니다...</div>
+    );
+  }
+
   return (
     <div className={styles.contentBox}>
       {/* 실제 차트 들어가는 자리 */}
