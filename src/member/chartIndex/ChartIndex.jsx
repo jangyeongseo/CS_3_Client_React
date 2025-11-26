@@ -139,7 +139,6 @@ const ChartIndex = () => {
     actualData === null || (isFetalMode && !currentStandardData);
 
 
-
   return (
     <div className={styles.body}>
       {/* 상단 버튼 영역: currentMenuList를 사용하도록 수정 */}

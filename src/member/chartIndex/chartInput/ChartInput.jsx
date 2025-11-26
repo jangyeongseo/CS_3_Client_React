@@ -61,7 +61,7 @@ const ChartInput = ({ menuList, activeMenu, currentWeek, existingData }) => {
                       onChange={(e) => handleChange(item, e.target.value)}
                       placeholder={item}
                     />
-                    <span className={styles.unit}>g</span>
+                    <span className={styles.unit}>kg</span>
                   </div>
                 ) : (
                   <input
@@ -89,7 +89,7 @@ const ChartInput = ({ menuList, activeMenu, currentWeek, existingData }) => {
                   onChange={(e) => handleChange(activeItem, e.target.value)}
                   placeholder={activeItem}
                 />
-                <span className={styles.unit}>g</span>
+                <span className={styles.unit}>kg</span>
               </div>
             ) : (
               <input
