@@ -348,10 +348,21 @@
   background-color: #b9b9b9;
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
+
+/*지원이 만짐 --------------*/
 .completeButton {
   background-color: #f0d827;
   color: #333;
+  position: relative;
+  z-index: 999999 !important;
 }
+.actionFooter {
+  position: relative;
+  z-index: 9999;
+}
+/*-----------------------------*/
+
+
 .completeButton:hover {
   background-color: #e0c817;
   box-shadow: 0 6px 12px rgba(240, 216, 39, 0.6);
