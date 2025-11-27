@@ -169,7 +169,7 @@ export function UseBoardWrite() {
 
         const title = titleRef.current?.value || "";
 
-        // tiptap 에디터 순수 텍스트 추출
+        // tiptap 에디터 텍스트 추출
         const editorText = editorInstance?.getText().replace(/\s/g, "");
 
         // 제목이 비었거나, 에디터가 비었거나, 엔터/공백만 있을 때
@@ -246,7 +246,6 @@ export function UseBoardWrite() {
             }
         }
         else { // 수정 모드일때는 :
-
             // 1. 이미지가 아예 없음 → 썸네일 제거
             if (!firstImageSysname) {
                 form.append("removeThumbnail", "true");
@@ -341,6 +340,12 @@ export function UseBoardWrite() {
         if (!isEditMode) { return; }
 
         caxios.get(`/board/detail?seq=${editBoardSeq}`).then(async resp => {
+            console.log("받아온 에디터 데이터", resp)
+
+
+
+
+
             const board = resp.data.boards;
             const files = resp.data.files;
 
@@ -368,6 +373,7 @@ export function UseBoardWrite() {
                 })
             );
             const parsed = JSON.parse(board.content);
+            console.log("파스드", parsed)
             const oldImages = extractImages(parsed);
             setExistingThumbnailSysname(oldImages[0] || null);//썸네일의 시스네임 저장하기
 
@@ -381,16 +387,76 @@ export function UseBoardWrite() {
         });
 
     }, [])
+
     useEffect(() => {
         if (!editorInstance || !initialContent) return;
 
-        try {
-            const parsed = JSON.parse(initialContent);
-            editorInstance.commands.setContent(parsed);
-        } catch (e) {
-            console.error("에디터 내용 파싱 실패", e);
+        let parsed = initialContent;
+        while (typeof parsed === "string") {
+            parsed = JSON.parse(parsed);
         }
+
+        editorInstance.commands.setContent(parsed);
+
+        requestAnimationFrame(() => {
+            const pm = editorInstance.view.dom;
+            const wrapper = pm.closest(".simple-editor-content");
+
+            if (!wrapper) return;
+
+            // ✅ 실제 내용 높이로 wrapper 동기화
+            wrapper.style.height = pm.scrollHeight + "px";
+        });
     }, [editorInstance, initialContent]);
+
+
+    // useEffect(() => {
+    //     if (!editorInstance) return;
+    //     const parsed = JSON.parse(initialContent);
+    //     editorInstance.commands.setContent(parsed);
+
+    //     const forceReflow = () => {
+    //         const dom = editorInstance.view.dom;
+
+    //         // ✅ DOM 강제 리플로우 트릭
+    //         dom.style.display = "none";
+    //         const _ = dom.offsetHeight; // // 강제로 리플로우 발생
+    //         dom.style.display = "";
+    //     };
+
+
+    //     setTimeout(forceReflow, 50);
+    // }, [editorInstance, initialContent]);
+
+    // useEffect(() => {
+    //     if (!editorInstance || !initialContent) return;
+
+    //     try {
+    //         const parsed = JSON.parse(initialContent);
+    //         editorInstance.commands.setContent(parsed);
+
+
+
+    //         setTimeout(() => {
+    //             if (editorInstance && editorInstance.view && editorInstance.view.dom) {
+    //                 const editorDom = editorInstance.view.dom;
+
+    //                 // 💡 핵심 코드: offsetHeight 값을 읽어 브라우저에게 강제 리플로우 유도
+    //                 // 이 값을 변수에 저장할 필요는 없으며, 읽는 행위 자체가 목적입니다.
+    //                 const reflow = editorDom.offsetHeight;
+
+    //                 // *주의*: `reflow` 변수는 사용되지 않으므로 ESLint 경고가 뜰 수 있습니다. 
+    //                 // 필요한 경우 주석 처리나 ESLint 비활성화를 고려하세요.
+
+    //                 console.log('강제 리플로우 실행 완료. 새로운 높이:', reflow);
+    //             }
+    //         }, 1000);
+
+
+    //     } catch (e) {
+    //         console.error("에디터 내용 파싱 실패", e);
+    //     }
+    // }, [editorInstance, initialContent]);
 
 
     //로그인 안햇으면 빠꾸 시키기
