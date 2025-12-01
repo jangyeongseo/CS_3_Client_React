@@ -12,6 +12,8 @@
   font-size: 16px;
   color: #696b70;
   font-family: "Noto Sans KR", sans-serif;
+
+  z-index: 9999; /* 드롭다운이 포함된 컨텍스트를 가장 위로 */
 }
 
 /* 콘텐츠 래퍼 */
@@ -176,13 +178,16 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   border: 1px solid #eee;
   padding: 10px 0;
-  z-index: 999999;
-  /* 어떤 컴포넌트든 넘어가는 최상단 */
+
+  z-index: 1000;
   color: #333;
   font-size: 14px;
+
+  max-height: 300px;
+  overflow-y: auto;
 }
 
-/* 드롭다운 헤더 (제목) */
+/* 드롭다운 헤더 */
 .dropdownHeader {
   padding: 8px 15px;
   font-size: 16px;
@@ -218,29 +223,6 @@
 .alertContent {
   margin: 0;
   line-height: 1.4;
-}
-
-.alertTime {
-  display: block;
-  font-size: 12px;
-  color: #999;
-  margin-top: 2px;
-}
-
-/* 모든 알림 보기 링크 */
-.viewAll {
-  padding: 8px 15px 0;
-  text-align: center;
-}
-
-.viewAll a {
-  color: #adb9e3;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.viewAll a:hover {
-  text-decoration: underline;
 }
 
 /* ==============================

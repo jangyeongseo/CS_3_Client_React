@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   MoreHorizontal,
   Eye,
@@ -14,6 +14,7 @@ import {
 import styles from "./BoardList.module.css";
 import { UseBoardList } from "./UseBoardList";
 import PageNaviBar from "../../../common/pageNavi/PageNavi";
+import BoardOver from "../boardOver/BoardOver";
 
 const BoardList = ({ handleDeleteBoard, handleEditBoard }) => {
   const {
@@ -44,10 +45,9 @@ const BoardList = ({ handleDeleteBoard, handleEditBoard }) => {
   } = UseBoardList({ handleDeleteBoard, handleEditBoard });
 
 
+  const [reportOpen, setReportOpen] = useState(false);
 
-
-
-
+  const [selectedBoardSeq, setSelectedBoardSeq] = useState(null);
 
 
 
@@ -80,7 +80,7 @@ const BoardList = ({ handleDeleteBoard, handleEditBoard }) => {
           <div className={styles.searchBar}>
             <input
               type="text"
-              placeholder="제목을 입력하세요"
+              placeholder="제목 또는 내용을 입력하세요"
               className={styles.searchInput}
               value={findTarget}
               onChange={handleFindTarget}
@@ -146,7 +146,7 @@ const BoardList = ({ handleDeleteBoard, handleEditBoard }) => {
 
                   {openMenuId === item.board.board_seq && (
                     <div className={styles.dropdownMenu}>
-                      {isMine ? (
+                      {item.isMine ? (
                         <>
                           <button
                             className={styles.menuItem}
@@ -168,9 +168,11 @@ const BoardList = ({ handleDeleteBoard, handleEditBoard }) => {
                       ) : (
                         <button
                           className={styles.menuItem}
-                          onClick={(e) =>
-                            handleMenuItemClick(e, "report", item.board.board_seq)
-                          }
+                          onClick={(e) => {
+                            handleMenuItemClick(e, "report", item.board.board_seq);
+                            setReportOpen(true);
+                            setSelectedBoardSeq(item.board.board_seq);
+                          }}
                         >
                           신고
                         </button>
@@ -211,6 +213,14 @@ const BoardList = ({ handleDeleteBoard, handleEditBoard }) => {
       <div className={styles.pagination}>
         <PageNaviBar page={page} setPage={setPage} count={count} totalCount={totalCount} typeBtn={typeBtn} />
       </div>
+
+      {reportOpen && (
+        <BoardOver
+          isOpen={reportOpen}
+          onClose={() => setReportOpen(false)}
+          boardSeq={selectedBoardSeq}
+        />
+      )}
     </div>
   );
 };

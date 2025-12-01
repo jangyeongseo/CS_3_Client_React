@@ -39,9 +39,10 @@
   height: 90%;
   position: absolute;
   object-fit: contain;
+  transform: translate(-50%, -50%);
+
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 /* 위에 겹치는 캐릭터 이미지 */
@@ -50,7 +51,8 @@
   position: absolute;
   height: auto;
   object-fit: contain;
-  top: 50%;
-  left: 50%;
   transform: translate(-50%, -55%);
+
+  top: 16%;
+  left: 33%;
 }

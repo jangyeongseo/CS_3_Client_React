@@ -13,7 +13,7 @@ import { UseBoardDetail } from "./UseBoardDetail";
 import { EditorContent } from "@tiptap/react";
 import CommentItem from "./comment/Comment";
 import { FILE_SERVER } from "config/config";
-
+import BoardOver from "../boardOver/BoardOver";
 
 
 // --- 메인 컴포넌트 ---
@@ -50,8 +50,8 @@ const BoardDetail = ({ handleDeleteBoard, handleEditBoard }) => {
     setEditCommentId
   } = UseBoardDetail({ handleDeleteBoard, handleEditBoard });
 
-
-
+  const [reportOpen, setReportOpen] = useState(false);
+  const [reportTargetSeq, setReportTargetSeq] = useState(null);
 
 
 
@@ -104,7 +104,11 @@ const BoardDetail = ({ handleDeleteBoard, handleEditBoard }) => {
                       // 남이 작성한 글
                       <button
                         className={styles.menuItem}
-                        onClick={(e) => handlePostMenuItemClick(e, "신고", targetBoard.board_seq)}
+                        onClick={(e) => {
+                          handlePostMenuItemClick(e, "신고", targetBoard.board_seq);
+                          setReportOpen(true);
+                          setReportTargetSeq(targetBoard.board_seq);
+                        }}
                       >
                         신고
                       </button>
@@ -212,7 +216,15 @@ const BoardDetail = ({ handleDeleteBoard, handleEditBoard }) => {
 
 
       </div>
+
+      <BoardOver
+        isOpen={reportOpen}
+        onClose={() => setReportOpen(false)}
+        boardSeq={reportTargetSeq}
+      />
     </div >
+
+
   );
 };
 

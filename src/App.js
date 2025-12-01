@@ -16,9 +16,11 @@ function App() {
   const [alerts, setAlerts] = useState([]);
   const [newAlerts, setNewAlerts] = useState(false);
 
-  useEffect(()=>{
-    setNewAlerts(true);
-  },[alerts])
+  useEffect(() => {
+    if (alerts.length > 0) {
+      setNewAlerts(true);
+    }
+  }, [alerts])
 
   useEffect(() => {
     console.log(alerts);
@@ -69,7 +71,7 @@ function App() {
           <Route path='/login/*' element={<Login setAlerts={setAlerts} />} /> {/*여기서 로그인페이지, 비번찾기, 아이디 찾기 페이지 추가 라우팅됨*/}
           <Route path='/signup/*' element={<Signup />} /> {/*회원가입*/}
           <Route path="/chooseType" element={<ChooseType />} /> {/*로그인 성공 하면 ChooseType 애기선택*/}
-          <Route path='/*' element={<MainIndex isLogin={isLogin} alerts={alerts} setAlerts={setAlerts} newAlerts={newAlerts} setNewAlerts={setNewAlerts}/>} /> {/*탑바 + 바디있는 곳으로 이동*/}
+          <Route path='/*' element={<MainIndex isLogin={isLogin} alerts={alerts} setAlerts={setAlerts} newAlerts={newAlerts} setNewAlerts={setNewAlerts} />} /> {/*탑바 + 바디있는 곳으로 이동*/}
           <Route path="input-baby" element={<InputBaby />} />
         </Routes>
       </BrowserRouter>

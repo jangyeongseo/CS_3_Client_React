@@ -3,8 +3,8 @@ import styles from "../BoardDetail.module.css";
 import { caxios } from "config/config";
 import { useNavigate } from "react-router-dom";
 import { UseComment } from "./UseComment";
-
-
+import { useState } from "react";
+import BoardOver from "../../boardOver/BoardOver";
 
 // --- 댓글 아이템 컴포넌트 ---
 const CommentItem =
@@ -22,7 +22,8 @@ const CommentItem =
         } = UseComment({ comment, commentMenuOpenId, closePostMenu, setCommentMenuOpenId, reloadComments, setCommentContent, setIsEdit, setEditCommentId, setIsReply, setParentCommentId, setPostMenuOpen });
 
 
-
+        const [reportOpen, setReportOpen] = useState(false);
+        const [selectedCommentSeq, setSelectedCommentSeq] = useState(null);
 
         return (
             <div className={wrapperClass} >
@@ -56,7 +57,14 @@ const CommentItem =
                                             </>
                                         ) : (
                                             // 남이 작성한 댓글
-                                            <button className={styles.menuItem} onClick={(e) => handleCommentMenuItemClick(e, "신고", comment.comment_seq, comment.comment_content)}>
+                                            <button
+                                                className={styles.menuItem}
+                                                onClick={(e) => {
+                                                    handleCommentMenuItemClick(e, "신고", comment.comment_seq, comment.comment_content);
+                                                    setReportOpen(true);
+                                                    setSelectedCommentSeq(comment.comment_seq);
+                                                }}
+                                            >
                                                 신고
                                             </button>
                                         )}
@@ -114,6 +122,13 @@ const CommentItem =
                             setCommentContent={setCommentContent}
                         />
                     ))}
+
+
+                <BoardOver
+                    isOpen={reportOpen}
+                    onClose={() => setReportOpen(false)}
+                    commentSeq={selectedCommentSeq}
+                />
             </div>
         );
     };

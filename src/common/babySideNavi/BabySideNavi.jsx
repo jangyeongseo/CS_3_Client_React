@@ -5,9 +5,17 @@ import BabyButton from "../../member/babyIndex/babyButton/BabyButton";
 import useAuthStore from "store/useStore";
 import { useNavigate } from "react-router-dom";
 
+
 const BabySideNavi = ({ onClose }) => {
   const logout = useAuthStore(state=>state.logout);
   const navi = useNavigate();
+  const bornDueDate = sessionStorage.getItem("babyDueDate");
+  const today = new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Seoul" });
+
+  // 태어났는지 여부 계산
+  const isBorn = bornDueDate <= today;
+
+
   return (
     <>
       {/* 배경 오버레이 */}
@@ -22,7 +30,7 @@ const BabySideNavi = ({ onClose }) => {
         {/* 카테고리 (세로 모드) */}
         <div className={styles.sidnavi}>
           {/* isVertical={true} - 세로 형태의 디자인 적용 */}
-          <BabyButton isVertical={true} />
+          <BabyButton isVertical={true} isBorn={isBorn} />
         </div>
         {/* 아기 리스트 (사이드바 모드 + 스크롤) */}
         <div className={styles.sidController}>

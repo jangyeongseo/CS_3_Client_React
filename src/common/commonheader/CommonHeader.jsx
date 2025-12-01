@@ -11,9 +11,9 @@ const CommonHeader = ({ isLogin, alerts, setAlerts, newAlerts, setNewAlerts}) =>
   const { id } = useAuthStore(state => state);
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isBellOpen, setIsBellOpen] = useState(false); // 알림 드롭다운 상태 추가
-  const location = useLocation();
 
-  const {clickAlarm} = UseCommonHeader(setAlerts);
+  const location = useLocation();
+  const {clickAlarm} = UseCommonHeader(setAlerts, setNewAlerts);
 
   const toggleSideNav = () => {
     setIsNavOpen(!isNavOpen);
@@ -22,7 +22,14 @@ const CommonHeader = ({ isLogin, alerts, setAlerts, newAlerts, setNewAlerts}) =>
   const closeSideNav = () => setIsNavOpen(false);
 
   const toggleBellDropdown = () => {
-    setIsBellOpen(!isBellOpen);
+    setIsBellOpen(prev => {
+      const newState = !prev;
+      if (newState === false) {
+        // 드롭다운을 닫을 때 newAlerts false로
+        setNewAlerts(false);
+      }
+      return newState;
+    });
     setIsNavOpen(false); // 알림 열 때 사이드바 닫기
   };
 
@@ -76,22 +83,16 @@ const CommonHeader = ({ isLogin, alerts, setAlerts, newAlerts, setNewAlerts}) =>
                     onClick={toggleBellDropdown}
                     className={styles.iconButton}
                   >
-                    {(() => {
-                      const hasNewAlert = alerts.length > 0 && alerts[0].user_id === id;
-                      return (
-                        <Bell
-                          className={`${styles.bellIcon} ${hasNewAlert ? styles.bellIconAlert : ""}`}
-                          onClick={() => setNewAlerts(false)}
-                        />
-                      );
-                    })()}
+                    <Bell
+                      className={`${styles.bellIcon} ${newAlerts ? styles.bellIconAlert : ""}`}
+                    />
                   </button>
 
                   {isBellOpen && (
                     <div className={styles.bellDropdown}>
                       <div className={styles.dropdownHeader}>
                         알림
-                        {newAlerts ? <span className={styles.newAlert}>New</span> : ""}
+                        {newAlerts && <span className={styles.newAlert}>New</span>}
                       </div>
 
                       {alerts.length > 0 ? (

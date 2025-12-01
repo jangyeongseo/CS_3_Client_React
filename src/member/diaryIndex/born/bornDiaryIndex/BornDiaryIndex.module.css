@@ -1,0 +1,59 @@
+.diaryIndexWrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* 상단 산모수첩 바 */
+.topBar {
+  width: 100%;
+  padding-bottom: 20px;
+}
+
+.backButton {
+  height: 48px;
+  width: 200px;
+  border-radius: 22px;
+  background-color: #b9b9b9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+  cursor: pointer;
+
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: capitalize;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.backButton:hover {
+  background-color: #a0a0a0;
+  transform: scale(0.98);
+}
+
+.backButton:active {
+  background-color: #8c8c8c;
+  transform: scale(0.95);
+}
+
+.contentLayout {
+  flex: 1;
+  display: flex;
+  gap: 20px;
+}
+
+/* 왼쪽 리스트 */
+.leftPanel {
+  flex: 1;
+}
+
+/* 오른쪽 기록 */
+.rightContent {
+  flex: 3;
+}

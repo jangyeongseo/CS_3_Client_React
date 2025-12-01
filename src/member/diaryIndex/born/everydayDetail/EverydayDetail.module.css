@@ -1,0 +1,270 @@
+/* -------------------- 공통 -------------------- */
+.detailContainer {
+  width: 100%;
+  height: 100%;
+  border-radius: 22px;
+  background-color: #fff;
+  border: 1px solid #f0d827;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 20px;
+  font-family: Pretendard;
+}
+
+/* -------------------- 헤더 -------------------- */
+.headerSection {
+  width: 100%;
+  border-bottom: 1px solid #f0d827;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 20px;
+  gap: 30px;
+  flex-shrink: 0;
+}
+
+.dateNavigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 140px;
+}
+
+.arrowIcon {
+  width: 26px;
+  height: 26px;
+  color: #8c8c8c;
+  cursor: pointer;
+}
+
+.currentDate {
+  font-weight: 800;
+  color: #404040;
+}
+
+/* -------------------- 카테고리 필터 -------------------- */
+.categoryFilters {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.filterButton {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 가운데 정렬 공통 */
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 30px;
+  border: 1px solid #d1d1d1;
+  background: #fff;
+  cursor: pointer;
+  transition: 0.2s ease;
+  flex-shrink: 0;
+  min-height: 36px; /* 높이 고정 */
+}
+
+.filterButton:hover {
+  background: #fafafa;
+}
+
+.filterButton.fullButton {
+  min-width: 90px;
+  justify-content: center;
+  text-align: center;
+  gap: 0;
+}
+
+/* 활성 버튼 */
+.filterButtonActive {
+  background: #f7f7f7;
+  border: 2px solid #f0d827;
+  box-sizing: border-box;
+}
+
+.filterText {
+  font-size: 16px;
+  color: #696b70;
+}
+
+/* 활성 버튼 글씨 색상 */
+.filterButtonActive .filterText {
+  color: #f0d827;
+}
+
+/* -------------------- 기록 추가 버튼 -------------------- */
+.addButtonWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
+
+.addButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  background: #f0d827;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.addButton:hover {
+  background: #e0c817;
+}
+
+.addIcon {
+  color: #fff;
+}
+
+.addText {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* -------------------- 로그 리스트 -------------------- */
+.logListWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.logEntry {
+  width: 100%;
+  height: 70px;
+  border-radius: 16px;
+  border: 1px solid #dcdcdc;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  background-color: #fff;
+  transition: 0.2s;
+}
+
+.logEntry:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.logTimeWrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.timeLine {
+  width: 2px;
+  height: 24px;
+}
+
+.timeText {
+  font-weight: 800;
+}
+
+.logContent {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-right: auto;
+  padding-left: 20px;
+}
+
+.logIconSvg {
+  width: 24px;
+  height: 24px;
+}
+
+.logType {
+  font-weight: 700;
+  color: #404040;
+}
+
+.logAmount {
+  font-size: 14px;
+  color: #b9b9b9;
+}
+
+.actionButtonWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.actionIcon {
+  width: 22px;
+  height: 22px;
+  color: #8c8c8c;
+  cursor: pointer;
+}
+
+.noLogMessage {
+  padding: 40px 20px;
+  text-align: center;
+  color: #8c8c8c;
+  font-size: 16px;
+}
+
+/* -------------------- 모달 -------------------- */
+.modalOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  border-radius: 22px;
+}
+
+.modalContent {
+  position: relative;
+  background: white;
+  padding: 40px;
+  border-radius: 22px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  max-width: 90%;
+  min-width: 450px;
+}
+
+.closeButton {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #8c8c8c;
+}
+
+/* -------------------- 초기 안내 메시지 -------------------- */
+.initialMessageWrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  background-color: #fcfcfc;
+  border-radius: 16px;
+  text-align: center;
+}
+
+.initialMessageText {
+  font-size: 18px;
+  color: #a0a0a0;
+  font-weight: 500;
+  line-height: 1.5;
+}

@@ -2,7 +2,7 @@ import { caxios } from "config/config";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function UseCommonHeader(setAlerts) {
+function UseCommonHeader(setAlerts, setNewAlerts) {
     const navi = useNavigate();
 
     const clickAlarm = (alert) => {
@@ -11,6 +11,8 @@ function UseCommonHeader(setAlerts) {
             .then(resp => {
                 setAlerts(prev => prev.filter(a => a.alarm_seq !== alarm_seq));
                 navi(`/board/detail?seq=${board_seq}`);
+                setNewAlerts(false);
+
             })
             .catch(err => console.log(err));
     }

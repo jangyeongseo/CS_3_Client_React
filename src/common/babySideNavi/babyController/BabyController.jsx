@@ -40,8 +40,9 @@ const BabyController = ({ isSidebar }) => {
             {data.map((baby, index) => (
               <button
                 key={index}
-                className={`${babySeq == baby.baby_seq ? styles.ingbaby1 : styles.ingbaby
-                  }`}
+                className={`${
+                  babySeq == baby.baby_seq ? styles.ingbaby1 : styles.ingbaby
+                }`}
                 onClick={() => changeBaby(baby.baby_seq, baby.birth_date)}
               >
                 <div className={styles.bbb}>

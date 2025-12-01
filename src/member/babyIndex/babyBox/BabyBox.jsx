@@ -3,6 +3,48 @@ import backgrond from "./imgs/Background.svg";
 import infants from "./imgs/Infants.svg";
 import backgrond2 from "./imgs/Background2.svg";
 import toddlers from "./imgs/Toddlers.svg";
+import { motion } from "framer-motion";
+import { useBabyBox } from "./UseBabyBox";
+
+const imageVariantsPregnant = {
+  initial: { opacity: 0, rotate: 0 },
+  animate: {
+    opacity: 1,
+    y: [0, -5, 0], // 위아래 둥실둥실
+    rotate: [0, -20, 20, 0], // 좌우 살짝 흔들리면서 회전
+    transition: {
+      opacity: { duration: 0.5 }, // 한 번만 등장
+      y: {
+        duration: 2.5,
+        repeat: Infinity,
+        repeatType: "reverse",
+        ease: "easeInOut",
+      },
+      rotate: {
+        duration: 8,
+        repeat: Infinity,
+        repeatType: "loop",
+        ease: "easeInOut",
+      },
+    },
+  },
+};
+
+const imageVariantsParenting = {
+  initial: { opacity: 0 },
+  animate: {
+    opacity: 1,
+    y: [0, -15, 0], // 통통 튀는 점프
+    transition: {
+      y: {
+        duration: 1.2,
+        repeat: Infinity,
+        ease: "easeOut",
+      },
+      opacity: { duration: 0.5 }, // 한 번만 페이드인
+    },
+  },
+};
 
 // isPregnant: boolean (임산모면 true, 육아면 false)
 // isDuePassed: boolean (출산 예정일이 지났거나, 육아 회원인 경우 true)
@@ -14,29 +56,30 @@ import toddlers from "./imgs/Toddlers.svg";
  * {boolean} isDuePassed - 출산 예정일이 지났는지 여부 (임산모 타입일 때만 유효)
  */
 // 기본값 설정: Prop이 없으면 테스트 값으로 대체
-const BabyBox = ({
-  babyName = "김돌쇠",
-  dueDateStatus = "D-2개월",
-  isPregnant = true,
-  isDuePassed = false,
-}) => {
+const BabyBox = ({ setIsBorn }) => {
+
+  const {
+    data,
+    isDuePassed,
+    dueDateStatus,
+    isParenting
+  } = useBabyBox({ setIsBorn });
+
+
   // 렌더링할 이미지 세트 결정 - 아기 이미지
   let backgroundImage = backgrond;
   let mainImage = infants;
-
-  // 조건: 회원이 '육아' 타입이거나, '임산모' 타입이지만 D-day가 지났을 때 (즉, 출산 후)
-  const isParenting = !isPregnant || isDuePassed;
-
   if (isParenting) {
     // 육아 이미지 세트
     backgroundImage = backgrond2;
     mainImage = toddlers;
   }
 
+
   return (
     <div className={styles.container}>
       <div className={styles.babyImagePlaceholder}>
-        <b className={styles.babyName}>{babyName}</b>
+        <b className={styles.babyName}>{data.name}</b>
         <div className={styles.dueDate}>{dueDateStatus}</div>
       </div>
 
@@ -49,10 +92,15 @@ const BabyBox = ({
           />
         </div>
         <div>
-          <img
+          <motion.img
             src={mainImage}
             className={styles.placeholderImage}
             alt={isParenting ? "육아" : "아기"}
+            initial="initial"
+            animate="animate"
+            variants={
+              isParenting ? imageVariantsParenting : imageVariantsPregnant
+            }
           />
         </div>
       </div>
