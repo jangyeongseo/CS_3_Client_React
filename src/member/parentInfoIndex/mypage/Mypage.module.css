@@ -65,6 +65,7 @@
   font-size: 18px;
   color: #696b70;
   margin-left: 10px;
+  font-weight: bold;
 }
 
 .dbid {
@@ -84,6 +85,7 @@
   font-size: 18px;
   color: #696b70;
   margin-left: 10px;
+  font-weight: bold;
 }
 
 .nick input {
@@ -104,12 +106,14 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  
 }
 
 .email label {
   font-size: 18px;
   color: #696b70;
   margin-left: 10px;
+  font-weight: bold;
 }
 
 .email input {
@@ -129,6 +133,7 @@
   font-size: 18px;
   color: #696b70;
   margin-left: 10px;
+  font-weight: bold;
 }
 
 .dbbirth {
@@ -140,16 +145,19 @@
 /* 연락처 */
 .phone label {
   color: #696b70;
-  font-size: 16px;
+  font-size: 18px;
   display: block;
   margin-bottom: 16px;
   margin-left: 10px;
+  font-weight: bold;
 }
 
 .phoneWrapper {
   display: flex;
   align-items: center;
   gap: 10px;
+  /* border:1px solid black; */
+  margin-left: 10px;
 }
 
 .prefix {
@@ -216,6 +224,7 @@
   font-size: 18px;
   color: #696b70;
   margin-left: 10px;
+  font-weight: bold;
 }
 
 .familywhy {
