@@ -22,11 +22,7 @@ export function UseUnBornDiaryIndex() {
             }
         })
     );
-    //[
-    //   { week: 13, id: 13, diaries: [] },
-    //   { week: 12, id: 12, diaries: [1, 2, 3, 4, 5, 6, 7] }, // 스크롤 테스트용 데이터
-    //   ...
-    // ];
+
 
 
     //주차별 일기 dto 리스트 데이터 가져오기

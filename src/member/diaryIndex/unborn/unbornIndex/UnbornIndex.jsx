@@ -38,11 +38,11 @@ const UnBornDiaryIndex = () => {
       <div className={styles.rigth}>
         {/*산모수첩 디테일 or 작성 페이지 라우팅*/}
         <Routes>
-          <Route path="" element={<DiaryDetail selectedWeek={selectedWeek}
+          <Route path="" element={<DiaryDetail selectedWeek={selectedWeek} setSelectedWeek={setSelectedWeek}
             handleAddDiary={handleAddDiary} setSelectedDiaryId={setSelectedDiaryId}
             getTargetWeekDiary={getTargetWeekDiary} />} /> {/*디테일 다이어리*/}
           <Route path="write" element={<DiaryWrite getTargetWeekDiary={getTargetWeekDiary}
-            setSelectedDiaryId={setSelectedDiaryId} />} /> {/*다이어리 작성*/}
+            setSelectedDiaryId={setSelectedDiaryId} selectedDiaryId={selectedDiaryId} />} /> {/*다이어리 작성*/}
         </Routes>
       </div>
     </div>

@@ -130,22 +130,18 @@ export function UseBoardList({ handleDeleteBoard, handleEditBoard }) {
         }
 
         const merged = data.boards.map(b => {
-
-            //내글인지 남의 글인지 확인
-            if (b.user_id === sessionStorage.getItem("id")) {
-                setIsMine(true);
-            }
+            const isMine = b.user_id === sessionStorage.getItem("id"); // ★ 개별 계산
 
             const preview = getPreviewText(b.content);
-            console.log(preview)
-            console.log(typeof b.content)
+
             return {
                 board: b,
                 thumb: thumbsMap.get(b.board_seq) || null,
-                preview
-            }
-        }
-        );
+                preview,
+                isMine  // ★ 전역 상태변수 대신 여기 값 저장
+            };
+        });
+
         setMergedList(merged);
 
         const urls = {};

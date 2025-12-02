@@ -6,7 +6,7 @@ import { EditorContent } from "@tiptap/react";
 
 
 // 산모수첩 상세 보기
-const DiaryDetail = ({ selectedWeek, handleAddDiary, setSelectedDiaryId, getTargetWeekDiary }) => {
+const DiaryDetail = ({ selectedWeek, handleAddDiary, setSelectedDiaryId, getTargetWeekDiary, setSelectedWeek }) => {
 
   const {
     seq,
@@ -14,8 +14,9 @@ const DiaryDetail = ({ selectedWeek, handleAddDiary, setSelectedDiaryId, getTarg
     targetDiaryContent,
     editor,
     id,
-    handleDeleteDiary
-  } = UseDiaryDetail({ selectedWeek, setSelectedDiaryId, getTargetWeekDiary });
+    handleDeleteDiary,
+    handleUpdateDiary
+  } = UseDiaryDetail({ selectedWeek, setSelectedDiaryId, getTargetWeekDiary, setSelectedWeek });
 
 
 
@@ -72,7 +73,8 @@ const DiaryDetail = ({ selectedWeek, handleAddDiary, setSelectedDiaryId, getTarg
               onClick={() => handleDeleteDiary(targetDiaryContent.journal_seq)}>
               삭제
             </button>
-            <button className={styles.editButton} onClick={() => navigate("write")}>
+            <button className={styles.editButton}
+              onClick={() => { console.log(targetDiaryContent.journal_seq, "타겟저널시퀀스넘어가나 확인"); handleUpdateDiary(targetDiaryContent.journal_seq, selectedWeek) }}>
               수정
             </button>
           </>

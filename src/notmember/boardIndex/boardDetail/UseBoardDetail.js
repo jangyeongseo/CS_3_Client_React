@@ -2,48 +2,10 @@ import { useEditor } from "@tiptap/react";
 import { caxios } from "config/config";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import StarterKit from "@tiptap/starter-kit"
-import Image from "@tiptap/extension-image"
-import Highlight from "@tiptap/extension-highlight"
-import Subscript from "@tiptap/extension-subscript"
-import Superscript from "@tiptap/extension-superscript"
-import TextAlign from "@tiptap/extension-text-align"
-import Typography from "@tiptap/extension-typography"
-import TaskList from "@tiptap/extension-task-list"
-import TaskItem from "@tiptap/extension-task-item"
-import Blockquote from "@tiptap/extension-blockquote"
-import CodeBlock from "@tiptap/extension-code-block"
 import { sendMessage } from "common/webSocket/connectWebSocket";
+import { editorExtensions } from "member/utils/editorSetting";
 
-//json 파싱용
-export const extensions = [
-    StarterKit.configure({
-        codeBlock: false,
-        blockquote: false,
-    }),
 
-    CodeBlock,
-    Blockquote,
-
-    TaskList,
-    TaskItem.configure({
-        nested: true,
-    }),
-
-    Image.configure({
-        inline: false,
-        allowBase64: true,
-    }),
-
-    Highlight,
-    Subscript,
-    Superscript,
-    Typography,
-
-    TextAlign.configure({
-        types: ["heading", "paragraph"],
-    }),
-]
 
 export function UseBoardDetail({ initialComments, handleDeleteBoard, handleEditBoard }) {
     //-----------------------상태변수 모음
@@ -76,7 +38,7 @@ export function UseBoardDetail({ initialComments, handleDeleteBoard, handleEditB
     //-----------------------상태변수 모음
     //에디터 파싱 옵션
     const editor = useEditor({
-        extensions,
+        extensions: editorExtensions,
         content: "",
         editable: false
     });
@@ -137,7 +99,7 @@ export function UseBoardDetail({ initialComments, handleDeleteBoard, handleEditB
                     comment_content: commentContent
                 })
                     .then(resp => {
-                        sendMessage("/app/notify", { 
+                        sendMessage("/app/notify", {
                             type: "NEW_COMMENT",
                             board_seq: Number(seq),
                             parent_comment_seq: parentCommentId,

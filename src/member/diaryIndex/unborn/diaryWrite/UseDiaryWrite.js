@@ -4,20 +4,28 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import useAuthStore from "store/useStore";
 
-export function UseDiaryWrite({ getTargetWeekDiary, setSelectedDiaryId }) {
+export function UseDiaryWrite({ getTargetWeekDiary, setSelectedDiaryId, selectedDiaryId }) {
     const navigate = useNavigate();
     const babySeq = sessionStorage.getItem("babySeq");
     const week = useLocation().state?.week;//몇번째 주차 선택햇는지에 대하여
 
-
-
     //--------------------------------상태변수 모음
     const [content, setContent] = useState("");
 
+
     // ----------- 에디터 내의 이미지 상태변수 -----------
     const [editorInstance, setEditorInstance] = useState(null);
+    const [initialContent, setInitialContent] = useState(null);
     const editorRef = useRef(null);
     const titleRef = useRef(null);
+
+    // ----------- 일반작성 모드, 편집모드 감지하기 -----------
+    const location = useLocation();
+    const isEditMode = location.state?.mode == "edit";
+    const editJournalSeq = location.state?.journal_seq;
+
+
+
 
     // imageSysList용 :작성완료된 글에서 미리보기된 파일 sysname 추출
     const extractImages = (node, arr = []) => {
@@ -33,11 +41,6 @@ export function UseDiaryWrite({ getTargetWeekDiary, setSelectedDiaryId }) {
         return arr;
     };
 
-
-    //--------------------------------유즈이펙트
-    // useEffect(() => {
-    //     selectedDiaryId(null); //글작성 페이지로 오면 nul
-    // }, [])
 
 
     //--------------------------------작성 완료시
@@ -71,26 +74,68 @@ export function UseDiaryWrite({ getTargetWeekDiary, setSelectedDiaryId }) {
         form.append("pregnancy_week", week);//임신주차(버튼 +눌럿을 때 해당 주차)
         console.log(week)
         //4) 아기 시퀀스
-        form.append("babySeq", babySeq);
+        form.append("baby_seq", babySeq);
 
 
-        try {
-            await caxios.post("/diary", form)
-                .then(resp => {
-                    console.log(resp);
-                    getTargetWeekDiary(week, babySeq) //왼쪽 네비바에서 바로 반영될 수 있도록
-                    setSelectedDiaryId(resp.data)//선택된 다이어리 아이디 방금 작성한걸로 바꾸기
-                    navigate(`/diary?week=${week}&seq=${resp.data}`);//방금 작성한 페이지로 이동
-                })
+        if (isEditMode) {//수정모드일때
+            try {
+                form.append("journal_seq", editJournalSeq);
+                await caxios.put("/diary", form)
+                alert("수정이 완료되었습니다!")
+                navigate(-1);
+            } catch (err) {
+                alert("산모수첩 수정에 실패했습니다. 다시 시도하세요");
+                return;
+            }
 
-            alert("업로드 되었습니다!");
-        } catch (err) {
-            alert("업로드에 실패했습니다. 다시 시도하세요");
+
+        } else {//작성 모드일때
+            try {
+
+                await caxios.post("/diary", form)
+                    .then(resp => {
+                        console.log(resp);
+                        getTargetWeekDiary(week, babySeq) //왼쪽 네비바에서 바로 반영될 수 있도록
+                        setSelectedDiaryId(resp.data)//선택된 다이어리 아이디 방금 작성한걸로 바꾸기
+                        navigate(`/diary?week=${week}&seq=${resp.data}`);//방금 작성한 페이지로 이동
+                    })
+
+                alert("업로드 되었습니다!");
+            } catch (err) {
+                alert("업로드에 실패했습니다. 다시 시도하세요");
+            }
         }
+
+
     };
 
 
 
+    //--------------------------------유즈이펙트
+    useEffect(() => { //편집모드가 아닐때 초기 컨텐츠 비우기
+        if (!isEditMode) {
+            setInitialContent(null);
+        }
+    }, [isEditMode]);
+    useEffect(() => { //편집모드일때 기존 데이터 불러서 세팅
+        if (!isEditMode) { return; }
+
+        caxios.get(`/diary/${editJournalSeq}`, { headers: { "BABY": babySeq } }).then(
+            async resp => {
+                console.log("받아온 에디터 데이터", resp)
+
+                titleRef.current.value = resp.data.title;
+                const content = resp.data.content;
+
+                setInitialContent(content);
+            });
+    }, [])
+    useEffect(() => {//에디터 인스턴스 생성때까지 기다렷다가 파싱
+        if (!editorInstance) return;
+        const parsed = JSON.parse(initialContent);
+        editorInstance.commands.setContent(parsed);
+
+    }, [editorInstance, initialContent]);
 
     return {
         titleRef,

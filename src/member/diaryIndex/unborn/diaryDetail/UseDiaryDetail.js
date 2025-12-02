@@ -1,55 +1,14 @@
 import { caxios } from "config/config";
 import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import StarterKit from "@tiptap/starter-kit"
-import Image from "@tiptap/extension-image"
-import Highlight from "@tiptap/extension-highlight"
-import Subscript from "@tiptap/extension-subscript"
-import Superscript from "@tiptap/extension-superscript"
-import TextAlign from "@tiptap/extension-text-align"
-import Typography from "@tiptap/extension-typography"
-import TaskList from "@tiptap/extension-task-list"
-import TaskItem from "@tiptap/extension-task-item"
-import Blockquote from "@tiptap/extension-blockquote"
-import CodeBlock from "@tiptap/extension-code-block"
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useEditor } from "@tiptap/react";
-
-
-// json 파싱용
-export const extensions = [
-    StarterKit.configure({
-        codeBlock: false,
-        blockquote: false,
-    }),
-
-    CodeBlock,
-    Blockquote,
-
-    TaskList,
-    TaskItem.configure({
-        nested: true,
-    }),
-
-    Image.configure({
-        inline: false,
-        allowBase64: true,
-    }),
-
-    Highlight,
-    Subscript,
-    Superscript,
-    Typography,
-
-    TextAlign.configure({
-        types: ["heading", "paragraph"],
-    }),
-]
+import { editorExtensions } from "member/utils/editorSetting";
 
 
 
 
 
-export function UseDiaryDetail({ selectedWeek, setSelectedDiaryId, getTargetWeekDiary }) {
+export function UseDiaryDetail({ selectedWeek, setSelectedDiaryId, getTargetWeekDiary, setSelectedWeek }) {
 
     const navigate = useNavigate();
     const [params] = useSearchParams();
@@ -60,12 +19,16 @@ export function UseDiaryDetail({ selectedWeek, setSelectedDiaryId, getTargetWeek
     //-----------------------------------------상태변수 모음
     const [targetDiaryContent, setTargetDiaryContent] = useState({});
 
+
+
+
     //에디터 파싱 옵션
     const editor = useEditor({
-        extensions,
+        extensions: editorExtensions,
         content: "",
         editable: false
     });
+
 
     //---------------------------------------버튼 함수
     const handleDeleteDiary = (journal_seq) => { //삭제
@@ -79,6 +42,15 @@ export function UseDiaryDetail({ selectedWeek, setSelectedDiaryId, getTargetWeek
         )
     }
 
+    const handleUpdateDiary = (journal_seq, selectedWeek) => { //수정
+        navigate("/diary/write", {
+            state: {
+                mode: "edit",
+                journal_seq: journal_seq,
+                week: selectedWeek
+            }
+        })
+    }
 
 
     //-----------------------------------------유즈 이펙트 모음
@@ -105,7 +77,11 @@ export function UseDiaryDetail({ selectedWeek, setSelectedDiaryId, getTargetWeek
         }
     }, [editor, targetDiaryContent]);
 
-
+    useEffect(() => {
+        if (targetDiaryContent?.pregnancy_week) {
+            setSelectedWeek(targetDiaryContent.pregnancy_week);
+        }
+    }, [targetDiaryContent]);
 
     return {
         seq,
@@ -113,6 +89,7 @@ export function UseDiaryDetail({ selectedWeek, setSelectedDiaryId, getTargetWeek
         targetDiaryContent,
         editor,
         id,
-        handleDeleteDiary
+        handleDeleteDiary,
+        handleUpdateDiary
     }
 }
