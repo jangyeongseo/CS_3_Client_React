@@ -297,6 +297,7 @@
   gap: 25px;
 }
 
+
 .backBtn,
 .submitBtn {
   flex: 1;
@@ -305,6 +306,7 @@
   border: none;
   cursor: pointer;
 }
+
 
 .backBtn {
   background-color: var(--color-font-back);

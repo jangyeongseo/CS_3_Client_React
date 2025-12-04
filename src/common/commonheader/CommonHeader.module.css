@@ -428,3 +428,73 @@
     height: 10px;
   }
 }
+
+/*--------------------------------------------------------------------*/
+
+/* ============================= */
+/* 태블릿 (1025px ~ 1280px) */
+/* ============================= */
+@media (max-width: 1280px) and (min-width: 1025px) {
+  .headerContentWrapper {
+    padding: 0 60px; /* 데스크탑 118px → 태블릿 60px */
+  }
+
+  .logoIcon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .menuItems {
+    gap: 16px;
+  }
+
+  .iconButton {
+    padding: 0 4px;
+  }
+
+  .signUpBtn,
+  .loginBtn {
+    width: 120px;
+    height: 36px;
+    font-size: 14px;
+  }
+
+  .bellDropdown {
+    right: 60px;
+    width: 280px;
+  }
+}
+
+/* ============================= */
+/* 모바일 (768px 이하) */
+/* ============================= */
+@media (max-width: 768px) {
+  .headerContentWrapper {
+    padding: 0 20px;
+  }
+
+  .logoIcon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .menuItems {
+    gap: 8px;
+  }
+
+  .signUpBtn,
+  .loginBtn {
+    width: 90px;
+    height: 32px;
+    font-size: 12px;
+  }
+
+  .rightSection {
+    gap: 8px;
+  }
+
+  .bellDropdown {
+    right: 20px;
+    width: 220px;
+  }
+}

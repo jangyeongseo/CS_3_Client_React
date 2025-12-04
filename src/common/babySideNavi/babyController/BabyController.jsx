@@ -15,9 +15,9 @@ import InputBaby from "../../../member/inputBaby/InputBaby";
 import useBabyController from "./UseBabyController";
 
 const BabyController = ({ isSidebar }) => {
-  const [showModal, setShowModal] = useState(false); // 아기 추가 모달
-  const [showInputBaby, setShowInputBaby] = useState(false); // InputBaby 모달
-  const [babyType, setBabyType] = useState(""); // "mom" or "child"
+  const [showModal, setShowModal] = useState(false);
+  const [showInputBaby, setShowInputBaby] = useState(false);
+  const [babyType, setBabyType] = useState("");
 
   const babyImages = {
     one: one,
@@ -30,48 +30,62 @@ const BabyController = ({ isSidebar }) => {
 
   return (
     <div
-      className={`${styles.rightcontainer} ${isSidebar ? styles.sidebarContainer : ""
-        }`}
+      className={`${styles.rightcontainer} ${
+        isSidebar ? styles.sidebarContainer : ""
+      }`}
     >
       <div className={styles.full}>
         <div className={styles.one}>
+
+          {/* 🔥 아기추가 + 아기리스트 → 두 영역으로 분리 */}
           <div className={styles.babyclick}>
-            {data.map((baby, index) => (
-              <button
-                key={index}
-                className={`${babySeq == baby.baby_seq ? styles.ingbaby1 : styles.ingbaby
-                  }`}
-                onClick={() => changeBaby(baby.baby_seq, baby.birth_date)}
-              >
-                <div className={styles.bbb}>
+
+            {/* 왼쪽 고정 아기추가 버튼 */}
+            {!isSidebar && (
+              <div className={styles.babyAdd}>
+                <button
+                  className={styles.plusbb}
+                  onClick={() => setShowModal(true)}
+                >
                   <img
-                    src={babyImages[baby.image_name]}
-                    alt="babyface"
-                    className={styles.babyfaceImage}
+                    src={yellowImg}
+                    alt="yellow"
+                    className={styles.yellowImage}
                   />
-                  <div>
-                    <div className={styles.babyname}>{baby.name}</div>
-                    <div className={styles.how}>
-                      {getKoreanOrder(index + 1)}
+                  <span>아기추가</span>
+                </button>
+              </div>
+            )}
+
+            {/* 오른쪽 아기 리스트 (스크롤 영역) */}
+            <div className={styles.babyList}>
+              {data.map((baby, index) => (
+                <button
+                  key={index}
+                  className={
+                    babySeq == baby.baby_seq
+                      ? styles.ingbaby1
+                      : styles.ingbaby
+                  }
+                  onClick={() => changeBaby(baby.baby_seq, baby.birth_date)}
+                >
+                  <div className={styles.bbb}>
+                    <img
+                      src={babyImages[baby.image_name]}
+                      alt="babyface"
+                      className={styles.babyfaceImage}
+                    />
+                    <div>
+                      <div className={styles.babyname}>{baby.name}</div>
+                      <div className={styles.how}>
+                        {getKoreanOrder(index + 1)}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </button>
-            ))}
+                </button>
+              ))}
+            </div>
 
-            {!isSidebar && (
-              <button
-                className={styles.plusbb}
-                onClick={() => setShowModal(true)}
-              >
-                <img
-                  src={yellowImg}
-                  alt="yellow"
-                  className={styles.yellowImage}
-                />
-                <span>아기추가</span>
-              </button>
-            )}
           </div>
         </div>
       </div>
@@ -81,13 +95,12 @@ const BabyController = ({ isSidebar }) => {
         {showModal && (
           <div className={styles.modal}>
             <motion.div
-              className={styles.ppap} // ppap
-              initial={{ opacity: 0, scale: 0.95 }} // 처음 완전 투명 & 조금 작게
-              animate={{ opacity: 1, scale: 1 }} // 렌더링 후 원상복귀
+              className={styles.ppap}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.3 }}
             >
-              {/* showInputBaby가 false일 때만 뒤로가기 버튼과 선택 화면 렌더 */}
               {!showInputBaby && (
                 <>
                   <button
@@ -97,7 +110,6 @@ const BabyController = ({ isSidebar }) => {
                     <CgClose />
                   </button>
 
-                  {/* 임산모 선택 */}
                   <button
                     className={styles.modalContentone}
                     onClick={() => {
@@ -116,7 +128,6 @@ const BabyController = ({ isSidebar }) => {
                     </div>
                   </button>
 
-                  {/* 육아 선택 */}
                   <button
                     className={styles.modalContenttwo}
                     onClick={() => {
@@ -137,12 +148,11 @@ const BabyController = ({ isSidebar }) => {
                 </>
               )}
 
-              {/* showInputBaby가 true일 때만 InputBaby 렌더 */}
               {showInputBaby && (
                 <InputBaby
                   type={babyType}
                   onClose={() => setShowInputBaby(false)}
-                  fromChooseType={true} // 부모 크기에 맞춤
+                  fromChooseType={true}
                 />
               )}
             </motion.div>

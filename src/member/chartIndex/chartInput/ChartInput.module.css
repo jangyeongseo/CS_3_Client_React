@@ -95,7 +95,8 @@
 }
 
 .submitBtn:hover {
-  background-color: #e4c716;
+  transform: scale(0.98);
+  background-color: #e0c817;
 }
 
 /* 반응형 */

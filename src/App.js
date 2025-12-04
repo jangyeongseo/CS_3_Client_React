@@ -5,7 +5,9 @@ import Signup from './notmember/signup/Signup';
 import MainIndex from './notmember/mainIndex/MainIndex';
 import ChooseType from "./member/chooseType/ChooseType.jsx";
 import InputBaby from "./member/inputBaby/InputBaby";
+
 import useAuthStore from './store/useStore.js';
+
 import { connectWebSocket } from 'common/webSocket/connectWebSocket';
 import "./styles/them.css";
 import { caxios } from 'config/config';

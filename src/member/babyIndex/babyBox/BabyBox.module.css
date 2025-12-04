@@ -47,12 +47,11 @@
 
 /* 위에 겹치는 캐릭터 이미지 */
 .placeholderImage {
-  width: 30%;
+  width: 28%;
   position: absolute;
   height: auto;
   object-fit: contain;
   transform: translate(-50%, -55%);
-
   top: 16%;
   left: 33%;
 }

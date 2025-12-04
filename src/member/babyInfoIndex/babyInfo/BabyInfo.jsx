@@ -117,7 +117,6 @@ const BabyInfo = () => {
                         selectedGender === gender
                           ? "none"
                           : "1px solid #8C8C8C",
-                      color: "#8C8C8C",
                       cursor: "pointer",
                     }}
                   >
@@ -131,11 +130,10 @@ const BabyInfo = () => {
                   width: "188px",
                   height: "48px",
                   lineHeight: "48px",
-                  textAlign: "center",
-                  backgroundColor: "#ADB9E3",
-                  borderRadius: "20px",
-                  border: "none",
-                  color: "#8C8C8C",
+                  textAlign: "start",
+                  marginLeft:"10px",
+                  fontSize:"16px",
+                  color: "#696B70",
                 }}
               >
                 {data.gender}
@@ -153,7 +151,7 @@ const BabyInfo = () => {
         </div>
 
         {/* 수정/완료/취소 버튼 */}
-        <div className={styles.correct} style={{ gap: "10px" }}>
+        <div className={styles.correct} style={{ gap: "20px" }}>
           {!isEditing ? (
             <button className={styles.corbt} onClick={handleEdit}>
               수정
