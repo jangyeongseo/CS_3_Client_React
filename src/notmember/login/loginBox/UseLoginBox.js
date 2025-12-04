@@ -4,9 +4,9 @@ import useAuthStore from "../../../store/useStore";
 import { useNavigate } from "react-router-dom";
 import { connectWebSocket, sendMessage } from "common/webSocket/connectWebSocket";
 
-function useLoginBox(setBabySeq, setAlerts) {
+function useLoginBox(alerts, setAlerts) {
     // 로그인 준비
-    const { login, getbabySeq, setBabyDueDate } = useAuthStore((state) => state);
+    const { login, getbabySeq, setBabyDueDate, setNewAlerts } = useAuthStore((state) => state);
     const navigate = useNavigate();
 
     // 값 받을 준비
@@ -54,10 +54,15 @@ function useLoginBox(setBabySeq, setAlerts) {
                     }
 
                     const processedAlert = { ...alert, message };
-                    setAlerts(prev => [processedAlert, ...prev]);
+                    setAlerts(prev => {
+                        const exists = prev.some(a => a.alarm_seq === alert.alarm_seq);
+                        if (exists) return prev;
+                        return [processedAlert, ...prev];
+                    });
+                    if(alerts.length > 0){
+                        setNewAlerts(true);
+                    }
                 });
-                //  sendMessage("/pub/notify/init", data.id);
-
 
                 setBabyDueDate(resp.data.babyDueDate);
                 if (babyseq == 0) {

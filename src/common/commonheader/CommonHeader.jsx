@@ -10,16 +10,14 @@ import useAuthStore from "store/useStore";
 const CommonHeader = ({
   isLogin,
   alerts,
-  setAlerts,
-  newAlerts,
-  setNewAlerts,
+  setAlerts
 }) => {
   const { id } = useAuthStore((state) => state);
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isBellOpen, setIsBellOpen] = useState(false); // 알림 드롭다운 상태 추가
 
   const location = useLocation();
-  const { clickAlarm } = UseCommonHeader(setAlerts, setNewAlerts);
+  const { clickAlarm, newAlerts, setNewAlerts } = UseCommonHeader();
 
   const toggleSideNav = () => {
     setIsNavOpen(!isNavOpen);
@@ -95,7 +93,7 @@ const CommonHeader = ({
                     onClick={toggleBellDropdown}
                     className={styles.iconButton}
                   >
-                    <Bell className={styles.bellIcon} />
+                    <Bell className={styles.bellIcon} onClick={()=>{setNewAlerts(false)}}/>
                     {newAlerts && <span className={styles.alertBadge} />}
                   </button>
 
@@ -113,7 +111,7 @@ const CommonHeader = ({
                           <div
                             key={idx}
                             className={styles.alertItem}
-                            onClick={() => clickAlarm(alert)}
+                            onClick={() => clickAlarm(alert , setAlerts)}
                           >
                             <p className={styles.alertContent}>
                               {alert.message}

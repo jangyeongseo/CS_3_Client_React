@@ -25,7 +25,7 @@ import { caxios } from "config/config";
 //메인 인덱스 페이지
 //여기서 로그인 여부에 따라서 보이고 안보이는게 다르게 만들어야함
 // "/"밑으로 들어가느 라우팅
-const MainIndex = ({ alerts, setAlerts, newAlerts, setNewAlerts }) => {
+const MainIndex = ({ alerts, setAlerts }) => {
   const { isLogin, babySeq } = useAuthStore((state) => state);
 
   const location = useLocation(); //현재 URL 경로
@@ -84,8 +84,6 @@ const MainIndex = ({ alerts, setAlerts, newAlerts, setNewAlerts }) => {
           isLogin={isLogin}
           alerts={alerts}
           setAlerts={setAlerts}
-          newAlerts={newAlerts}
-          setNewAlerts={setNewAlerts}
         />
       </header>
       {/* 바디 영역 */}
