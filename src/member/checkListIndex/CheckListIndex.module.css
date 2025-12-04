@@ -29,8 +29,7 @@
   margin-bottom: 20px;
 }
 
-<<<<<<< HEAD
-=======
+
 /* 각 영역 공통 */
 .left,
 .rigth {
@@ -45,7 +44,6 @@
 }
 
 /* 나머지 높이 */
->>>>>>> ed0830bd5613d237a1f92888fa75ff545790993d
 .listWrapper {
   flex: 1;
   overflow-y: auto;

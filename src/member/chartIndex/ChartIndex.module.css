@@ -1,12 +1,4 @@
-<<<<<<< HEAD
-/* =========================
-   기본 스타일 (데스크탑)
-   ========================= */
-=======
-/* ===========================
-   기본 스타일 (전체) 
-=========================== */
->>>>>>> ed0830bd5613d237a1f92888fa75ff545790993d
+
 .body {
   display: flex;
   flex-direction: column;
@@ -43,8 +35,7 @@
   transition: all 0.2s ease;
 }
 
-<<<<<<< HEAD
-=======
+
 /* 활성/비활성 hover 효과 적용 */
 .menuButton:hover,
 .menuActive:hover {
@@ -55,35 +46,25 @@
 }
 
 /* 활성/비활성 스타일 */
->>>>>>> ed0830bd5613d237a1f92888fa75ff545790993d
 .menuActive {
   background-color: var(--color-main);
   color: var(--color-white);
   font-weight: bold;
 }
 
-<<<<<<< HEAD
-=======
+
 /* 비활성 */
->>>>>>> ed0830bd5613d237a1f92888fa75ff545790993d
 .menuButton {
   background-color: transparent;
   border: 1px solid var(--color-main);
   color: var(--color-font-color1);
 }
 
-<<<<<<< HEAD
-.contentWrapper {
-  display: flex;
-  width: 100%;
-  height: calc(100% - 70px);
-  gap: 20px;
-=======
+
 /* 메인 컨텐츠 영역 (차트+폼) */
 .contentWrapper {
   display: flex;
   gap: 26px;
->>>>>>> ed0830bd5613d237a1f92888fa75ff545790993d
   flex: 1;
   align-items: stretch;
 }
@@ -98,17 +79,7 @@
 
 .ChartInputArea {
   flex: 1;
-<<<<<<< HEAD
-  height: 100%;
-  min-height: 250px;
-  overflow-y: auto;
-}
 
-.ChartInputArea > * {
-  flex: 1;      
-  min-height: 0; 
-  height: 100%;  
-=======
 }
 .chartInputArea {
   flex: 1;
@@ -234,5 +205,4 @@
     height: 36px;
     font-size: 12px;
   }
->>>>>>> ed0830bd5613d237a1f92888fa75ff545790993d
 }

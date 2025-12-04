@@ -20,7 +20,7 @@ const BabySideNavi = ({ onClose }) => {
   const onclickSecession = () => {
     // eslint-disable-next-line no-restricted-globals
     if (
-      confirm(
+      window.confirm(
         `정말 회원탈퇴를 하시겠습니까?\n이 작업 완료 후 데이터는 되돌릴 수 없습니다.`
       )
     ) {

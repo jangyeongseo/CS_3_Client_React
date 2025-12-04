@@ -32,22 +32,66 @@
   justify-content: center;
 }
 
+/* 🔥 아기추가 + 아기리스트 전체 */
 .babyclick {
-  width: 97%;
-  height: 91%;
   display: flex;
-  flex-direction: row; /* 기본 가로 정렬 유지 */
+  flex-direction: row;
+  gap: 10px;
+  width: 100%;
+  height: 91%;
+}
+
+/* 🔥 아기추가 버튼 고정 영역 */
+.babyAdd {
+  flex: 0 0 17%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  border-radius: 30px;
+}
+
+/* 🔥 아기 리스트만 스크롤 */
+.babyList {
+  display: flex;
+  flex-direction: row;
   gap: 10px;
   overflow-x: auto;
   overflow-y: hidden;
-  -webkit-overflow-scrolling: touch; /* iOS 스크롤 부드럽게 */
+  flex-wrap: nowrap;
+  flex: 1;
+  /* 4명까지만 보이도록 폭 제한 */
+  width: calc(140px * 4 + 10px * 3);
+
+/* 스크롤바 스타일 */
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: var(--color-primary) transparent;
+
+}
+
+/* Webkit 계열 브라우저 (Chrome, Edge, Safari) */
+.babyList::-webkit-scrollbar {
+  width: 8px;
+}
+
+.babyList::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.babyList::-webkit-scrollbar-thumb {
+  background-color: var(--color-primary);
+  border-radius: 4px;
+  border: 2px solid #ffffff;
+}
+
+.babyList::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-hover);
 }
 
 /* --------------------------------------------------
    선택된 아기 버튼
    -------------------------------------------------- */
 .ingbaby1 {
-  width: 22%;
   border: 1px solid #f0d827;
   background-color: #fff4d6;
   border-radius: 30px;
@@ -56,6 +100,7 @@
   align-items: center;
   transition: transform 0.3s ease;
   cursor: pointer;
+  flex: 0 0 190px; /* 축소 방지 및 고정 폭 */
 }
 
 .ingbaby1 img,
@@ -67,7 +112,6 @@
 
 /* 일반 아기 버튼 */
 .ingbaby {
-  width: 20%;
   border: 1px solid #f0d827;
   background-color: #ffffff;
   border-radius: 30px;
@@ -76,20 +120,15 @@
   align-items: center;
   transition: transform 0.3s ease;
   cursor: pointer;
+  flex: 0 0 132px; /* 축소 방지 및 고정 폭 */
 }
 
 .ingbaby:hover {
-  border: 2px solid #f0d827;
   background-color: #fff4d6;
-  width: 22%;
-}
-
-.ingbaby:hover img,
-.ingbaby:hover .babyname,
-.ingbaby:hover .how {
-  transform: scale(1.1);
+  transform: scale(1.05);
   transition: transform 0.3s ease;
 }
+
 
 /* 아기 버튼 내부 구조 */
 .bbb {
@@ -115,9 +154,9 @@
 /* 아기 이미지 수정 */
 .babyfaceImage {
   width: 50%;
-  height: auto;      /* 비율 유지 */
-  max-height: 60%;   /* 부모 안에서 최대 높이 제한 */
-  object-fit: contain; /* 이미지 비율 유지 */
+  height: auto;
+  max-height: 60%;
+  object-fit: contain;
 }
 
 /* --------------------------------------------------
@@ -128,7 +167,8 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  width: 20%;
+  width: 100%;
+  height:100%;
   border: 1px solid #f0d827;
   border-radius: 30px;
   background-color: #ffffff;
@@ -136,22 +176,16 @@
   transition: transform 0.3s ease;
 }
 
-.plusbb:hover {
-  border: 2px solid #f0d827;
-  background-color: #fff4d6;
-  width: 22%;
-}
-
-.plusbb:hover img,
-.plusbb:hover span {
-  transform: scale(1.1);
-  transition: transform 0.3s ease;
-}
-
 .plusbb span {
   font-size: 18px;
   font-weight: bold;
   color: #696b70;
+}
+
+.plusbb:hover {
+  background-color: #fff4d6;
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
 }
 
 /* ==============================
@@ -369,110 +403,3 @@
   align-items: center;
   z-index: 1000;
 }
-
-/*------------------------------------------------*/
-
-/* ==============================
-   반응형 미디어쿼리
-   ============================== */
-
-/* 작은 모바일 (320px ~ 375px) */
-@media (max-width: 375px) {
-  .babyclick {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    justify-content: space-between;
-    gap: 6%;
-    padding: 0 0%;
-  }
-  .ingbaby, .ingbaby1, .plusbb {
-    flex: 1 1 45%;
-    min-width: 45%;
-  }
-  .bbb { gap: 10%; }
-  .babyname { font-size: 12px; }
-  .how { font-size: 10px; }
-  .babyfaceImage {
-    width: 40%;
-    height: auto;
-    max-height: 100%;
-  }
-}
-
-/* 일반 모바일 (376px ~ 414px) */
-@media (min-width: 376px) and (max-width: 414px) {
-  .babyclick {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    justify-content: space-between;
-    gap: 5%;
-    padding: 0 4%;
-    
-  }
-  .ingbaby, .ingbaby1, .plusbb {
-    flex: 1 1 42%;
-    min-width: 30%;
-  }
-  .bbb { gap: 8%; }
-  .babyname { font-size: 13px; }
-  .how { font-size: 11px; }
-  .babyfaceImage { width: 42%; height: auto; max-height: 100%; }
-}
-
-/* 작은 태블릿 / 대형폰 (415px ~ 600px) */
-@media (min-width: 415px) and (max-width: 600px) {
-  .babyclick {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    justify-content: space-between;
-    gap: 4%;
-    padding: 0 0%;
-  }
-  .ingbaby, .ingbaby1, .plusbb {
-    flex: 1 1 40%;
-    min-width: 30%;
-  }
-  .bbb { gap: 6%; }
-  .babyname { font-size: 14px; }
-  .how { font-size: 12px; }
-  .babyfaceImage { width: 45%; height: auto; max-height: 100%; }
-}
-
-/* 일반 태블릿 (601px ~ 900px) */
-@media (min-width: 601px) and (max-width: 900px) {
-  .babyclick {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    justify-content: space-between;
-    gap: 3%;
-    padding: 0 3%;
-  }
-  .ingbaby, .ingbaby1, .plusbb {
-    flex: 1 1 30%;
-    min-width: 30%;
-  }
-  .bbb { gap: 5%; }
-  .babyname { font-size: 16px; }
-  .how { font-size: 14px; }
-  .babyfaceImage { width: 45%; height: auto; max-height: 100%; }
-}
-
-/* 큰 태블릿 / 작은 PC (901px ~ 1200px) */
-@media (min-width: 901px) and (max-width: 1200px) {
-  .babyclick {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    justify-content: space-between;
-    gap: 2.5%;
-    padding: 0 2.5%;
-  }
-  .ingbaby, .ingbaby1, .plusbb {
-    flex: 1 1 22%;
-    min-width: 22%;
-  }
-  .bbb { gap: 4%; }
-  .babyname { font-size: 18px; }
-  .how { font-size: 15px; }
-  .babyfaceImage { width: 45%; height: auto; max-height: 100%; }
-}
-

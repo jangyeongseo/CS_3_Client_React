@@ -297,28 +297,8 @@
   gap: 25px;
 }
 
-<<<<<<< HEAD
-.backBtn {
-  flex: 1;
-  height: 48px;
-  background-color: #b9b9b9;
-  color: #fff;
-  border-radius: 22px;
-  border: none;
-  font-size: 16px;
-  font-weight: 500;
-  text-transform: capitalize;
-  cursor: pointer;
-}
 
-.backBtn:hover,.backBtn:active {
-  transform: scale(0.98);
-  background-color: #8c8c8c;
-}
-
-=======
 .backBtn,
->>>>>>> ed0830bd5613d237a1f92888fa75ff545790993d
 .submitBtn {
   flex: 1;
   height: 48px;
@@ -327,13 +307,7 @@
   cursor: pointer;
 }
 
-<<<<<<< HEAD
-.submitBtn:hover,.submitBtn:active {
-  transform: scale(0.98);
-  background-color: #e0c817;
-}
 
-=======
 .backBtn {
   background-color: var(--color-font-back);
   color: #fff;
@@ -432,4 +406,3 @@
     width: 100%;
   }
 }
->>>>>>> ed0830bd5613d237a1f92888fa75ff545790993d
