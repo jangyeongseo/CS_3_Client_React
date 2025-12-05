@@ -30,14 +30,13 @@ const BabyController = ({ isSidebar }) => {
 
   return (
     <div
-      className={`${styles.rightcontainer} ${
-        isSidebar ? styles.sidebarContainer : ""
-      }`}
+      className={`${styles.rightcontainer} ${isSidebar ? styles.sidebarContainer : ""
+        }`}
     >
       <div className={styles.full}>
         <div className={styles.one}>
 
-          {/* 🔥 아기추가 + 아기리스트 → 두 영역으로 분리 */}
+          {/* 아기추가 + 아기리스트 → 두 영역으로 분리 */}
           <div className={styles.babyclick}>
 
             {/* 왼쪽 고정 아기추가 버튼 */}
@@ -58,15 +57,16 @@ const BabyController = ({ isSidebar }) => {
             )}
 
             {/* 오른쪽 아기 리스트 (스크롤 영역) */}
-            <div className={styles.babyList}>
+            <div
+              className={styles.babyList}
+              onWheel={(e) => {
+                e.currentTarget.scrollLeft += e.deltaY;
+              }}
+            >
               {data.map((baby, index) => (
                 <button
                   key={index}
-                  className={
-                    babySeq == baby.baby_seq
-                      ? styles.ingbaby1
-                      : styles.ingbaby
-                  }
+                  className={babySeq == baby.baby_seq ? styles.ingbaby1 : styles.ingbaby}
                   onClick={() => changeBaby(baby.baby_seq, baby.birth_date)}
                 >
                   <div className={styles.bbb}>
@@ -77,9 +77,7 @@ const BabyController = ({ isSidebar }) => {
                     />
                     <div>
                       <div className={styles.babyname}>{baby.name}</div>
-                      <div className={styles.how}>
-                        {getKoreanOrder(index + 1)}
-                      </div>
+                      <div className={styles.how}>{getKoreanOrder(index + 1)}</div>
                     </div>
                   </div>
                 </button>
