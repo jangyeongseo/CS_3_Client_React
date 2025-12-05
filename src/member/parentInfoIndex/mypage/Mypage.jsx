@@ -42,13 +42,14 @@ const Mypage = () => {
                     value={data.nickname}
                     onChange={hendleChange}
                     className={`${styles.editableInputHalf}
-                     ${!regexAuth.nickname ||
-                        (!regexAuth.nickNameChack &&
-                          !regexAuth.nickNameChack &&
-                          inputCount.nickname > 0)
-                        ? styles.auth
-                        : ""
-                      }`}
+                     ${
+                       !regexAuth.nickname ||
+                       (!regexAuth.nickNameChack &&
+                         !regexAuth.nickNameChack &&
+                         inputCount.nickname > 0)
+                         ? styles.auth
+                         : ""
+                     }`}
                   />
                   <button className={styles.checkButton} onClick={chackClick}>
                     중복확인
@@ -72,10 +73,11 @@ const Mypage = () => {
                       onChange={hendleChange}
                       value={data.email}
                       className={`${styles.editableInputHalf}
-                     ${!regexAuth.email && inputCount.email > 0
-                          ? styles.auth
-                          : ""
-                        }`}
+                     ${
+                       !regexAuth.email && inputCount.email > 0
+                         ? styles.auth
+                         : ""
+                     }`}
                     />
                     <button
                       className={styles.duplicationButton}
@@ -90,10 +92,11 @@ const Mypage = () => {
                     name="emailAuth"
                     onChange={hendleChange}
                     className={`${styles.verificationInput}
-                     ${!regexAuth.emailAuth && inputCount.emailAuth > 0
-                        ? styles.auth
-                        : ""
-                      }`}
+                     ${
+                       !regexAuth.emailAuth && inputCount.emailAuth > 0
+                         ? styles.auth
+                         : ""
+                     }`}
                   />
                 </>
               ) : (
@@ -125,10 +128,11 @@ const Mypage = () => {
                       onChange={hendleChange}
                       maxLength={4}
                       className={`${styles.phone123}
-                     ${!regexAuth.phone1 && inputCount.phone1 > 0
-                          ? styles.auth
-                          : ""
-                        }`}
+                     ${
+                       !regexAuth.phone1 && inputCount.phone1 > 0
+                         ? styles.auth
+                         : ""
+                     }`}
                     />
                     <span className={styles.dash}>-</span>
                     <input
@@ -139,10 +143,11 @@ const Mypage = () => {
                       maxLength={4}
                       value={data.phone2}
                       className={`${styles.phone456}
-                     ${!regexAuth.phone2 && inputCount.phone2 > 0
-                          ? styles.auth
-                          : ""
-                        }`}
+                     ${
+                       !regexAuth.phone2 && inputCount.phone2 > 0
+                         ? styles.auth
+                         : ""
+                     }`}
                     />
                   </>
                 ) : (

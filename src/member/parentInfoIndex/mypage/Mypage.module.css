@@ -57,7 +57,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
 /* 아이디 */
@@ -90,7 +90,7 @@
 }
 
 .nick input {
-  height: 48px;
+  height: 42px;
   border: 1px solid #696b70;
   padding: 0 10px;
   outline: none;
@@ -117,8 +117,8 @@
 
 .email input {
   border-radius: 20px;
-  height: 48px;
-  border: 1px solid #696b70;
+  height: 42px;
+  border: 1px solid var(--color-font-back);
   padding: 0 10px;
   outline: none;
 }
@@ -179,7 +179,7 @@
 /* 수정 모드 */
 .phoneWrapper .prefixActive {
   width: 100px !important;
-  height: 48px;
+  height: 42px;
   text-align: center;
   display: flex;
   align-items: center;
@@ -203,9 +203,8 @@
 .editableInputHalf,
 .phoneWrapper input {
   width: 70%;
-  height: 48px;
+  height: 42px;
   border-radius: 20px;
-  /* border: 1px solid #696b70; */
   padding: 0 10px;
   box-sizing: border-box;
   outline: none;
@@ -216,7 +215,7 @@
 .checkButton,
 .duplicationButton {
   flex: 0 0 30%;
-  height: 48px;
+  height: 42px;
   border-radius: 20px;
   border: none;
   background-color: #b9b9b9;
@@ -244,7 +243,7 @@
 /* 이메일 인증 입력 */
 .verificationInput {
   width: 100% !important;
-  height: 48px;
+  height: 42px;
   border-radius: 20px;
   border: 1px solid #696b70;
   padding: 0 10px;
@@ -264,8 +263,8 @@
    ============================== */
 .dbPhone {
   width: 80px;
-  height: 48px;
-  line-height: 48px;
+  height: 42px;
+  line-height: 42px;
   text-align: center;
   background-color: #fff4d6;
   box-sizing: border-box;
@@ -275,12 +274,12 @@
 .phone456 {
   border: 1px solid #696b70;
   width: 60px;
-  height: 48px; 
+  height: 42px;
   border-radius: 20px;
-  text-align: center !important; 
-  padding: 0; 
+  text-align: center !important;
+  padding: 0;
   box-sizing: border-box;
-  font-size: 16px; 
+  font-size: 16px;
 }
 /* ==============================
    가족코드
@@ -620,17 +619,17 @@
   .phoneWrapper .prefix,
   .phoneWrapper .prefixActive {
     width: 50px;
-    height: 48px;
+    height: 42px;
     font-size: 16px;
   }
   .phoneWrapper input {
     width: 70%;
-    height: 48px;
+    height: 42px;
     font-size: 16px;
   }
   .editableInputHalf,
   .dbValue {
-    height: 48px;
+    height: 42px;
     font-size: 16px;
     padding: 0 10px;
   }
@@ -644,7 +643,7 @@
     border-radius: 20px;
   }
   .verificationInput {
-    height: 48px;
+    height: 42px;
     width: 200px;
     font-size: 16px;
   }

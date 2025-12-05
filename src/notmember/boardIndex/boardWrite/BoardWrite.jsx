@@ -1,9 +1,10 @@
 import React from "react";
-import { motion } from "framer-motion"; // ⬅ 추가
+import { motion } from "framer-motion";
 import { ChevronDown, UploadCloud, X } from "lucide-react";
 import styles from "./BoardWrite.module.css";
 import { UseBoardWrite } from "./UseBoardWrite";
 import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor";
+import Loading from "common/loading/Loading";
 
 const containerVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -44,6 +45,7 @@ const BoardWrite = () => {
     isOpen,
     selected,
     selectedVisibility,
+    isSubmitting,
   } = UseBoardWrite();
 
   return (
@@ -59,7 +61,7 @@ const BoardWrite = () => {
         <div className={styles.inputField}>
           <input
             type="text"
-            placeholder="제목을 입력하세요"
+            placeholder="제목을 입력하세요 (최대 30글자)"
             className={styles.inputElement}
             ref={titleRef}
           />
@@ -154,7 +156,7 @@ const BoardWrite = () => {
 
           <label htmlFor="file-upload" className={styles.uploadButton}>
             <UploadCloud size={20} />
-            <span>파일 선택 또는 드래그 앤 드롭</span>
+            <span>파일 선택 또는 드래그 앤 드롭 (최대 7개)</span>
           </label>
 
           {uploadedFiles.length > 0 && (
@@ -204,10 +206,17 @@ const BoardWrite = () => {
         <button onClick={handleBack} className={styles.backButton}>
           뒤로가기
         </button>
-        <button onClick={handleComplete} className={styles.completeButton}>
+        <button
+          onClick={handleComplete}
+          className={styles.completeButton}
+          disabled={isSubmitting}
+        >
           완료
         </button>
       </motion.div>
+      {isSubmitting && (
+        <Loading message="잠시만 기다려주세요. 정보를 빠르게 준비하고 있습니다." />
+      )}
     </motion.div>
   );
 };

@@ -26,9 +26,10 @@
 .layoutMain,
 .layoutMainYellow {
   flex: 1;
-  height: auto;
+  height: 100%;
   padding: 20px 118px;
   overflow-y: auto;
+  box-sizing: border-box;
 }
 
 /* 메인 내용 */
@@ -55,7 +56,6 @@
   align-items: flex-start;
   background-color: var(--color-sud-color1) !important;
 
-  /* 스크롤 숨기기 */
   scrollbar-width: none;
   -ms-overflow-style: none;
 }

@@ -40,6 +40,7 @@ const BoardDetail = ({ handleDeleteBoard, handleEditBoard }) => {
     isEdit,
     setIsEdit,
     setEditCommentId,
+    handleKeyDown
   } = UseBoardDetail({ handleDeleteBoard, handleEditBoard });
 
   const [reportOpen, setReportOpen] = useState(false);
@@ -242,13 +243,14 @@ const BoardDetail = ({ handleDeleteBoard, handleEditBoard }) => {
                   onClick={(e) => e.stopPropagation()}
                   value={commentContent}
                   onChange={handleInputChange}
+                  onKeyDown={handleKeyDown}
                   type="text"
                   placeholder={
                     isEdit
-                      ? "댓글을 수정하세요"
+                      ? "댓글을 수정하세요 (최대 50자)"
                       : isReply
-                      ? "대댓글을 입력하세요"
-                      : "메시지를 입력하세요"
+                      ? "대댓글을 입력하세요 (최대 50자)"
+                      : "메시지를 입력하세요 (최대 50자)"
                   }
                   className={styles.inputElement}
                 />

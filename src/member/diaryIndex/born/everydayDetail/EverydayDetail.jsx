@@ -1,12 +1,8 @@
-import { use, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import styles from "./EverydayDetail.module.css";
 import {
-  Milk,
-  Droplets,
-  Soup,
-  Moon,
-  Thermometer,
+  Inbox,
   ChevronLeft,
   ChevronRight,
   MoreVertical,
@@ -14,8 +10,6 @@ import {
 } from "lucide-react";
 import EverydayWrite from "../everydayWrite/EverydayWrite";
 import { UseEverydayDetail } from "./UseEverydayDetail";
-
-
 
 // 로그 리스트 컨테이너 애니메이션 Variants
 const listContainerVariants = {
@@ -38,7 +32,16 @@ const logItemVariants = {
   visible: { opacity: 1, y: 0 },
 };
 
-const EverydayDetail = ({ currentDate, setCurrentDate, formatDateKr, fetchData, fetchAvgData, startDate, endDate, setAvg }) => {
+const EverydayDetail = ({
+  currentDate,
+  setCurrentDate,
+  formatDateKr,
+  fetchData,
+  fetchAvgData,
+  startDate,
+  endDate,
+  setAvg,
+}) => {
   const {
     moveDate,
     typeMap,
@@ -55,14 +58,39 @@ const EverydayDetail = ({ currentDate, setCurrentDate, formatDateKr, fetchData, 
     editMode,
     setEditMode,
     editData,
-    setEditData
+    setEditData,
   } = UseEverydayDetail({ currentDate, setCurrentDate, fetchData });
 
+  // 드롭다운 상태 관리
+  const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
+
+  const toggleDropdown = (index) => {
+    setOpenDropdownIndex((prev) => (prev === index ? null : index));
+  };
+
+  // 여러 드롭다운을 관리할 refs 배열
+  const dropdownRefs = useRef([]);
+
+  // 바깥 클릭 감지
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (openDropdownIndex !== null) {
+        const currentRef = dropdownRefs.current[openDropdownIndex];
+        if (currentRef && !currentRef.contains(e.target)) {
+          setOpenDropdownIndex(null);
+        }
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [openDropdownIndex]);
 
   const recordLabelMap = {
     "toilet/pee": "소변",
     "toilet/poop": "대변",
   };
+
   const amountUnitMap = {
     milk: "ml",
     baby_food: "ml",
@@ -71,16 +99,20 @@ const EverydayDetail = ({ currentDate, setCurrentDate, formatDateKr, fetchData, 
     toilet: "회",
   };
 
-
-
   return (
     <div className={styles.detailContainer}>
       {/* Header & 날짜 */}
       <div className={styles.headerSection}>
         <div className={styles.dateNavigation}>
-          <ChevronLeft className={styles.arrowIcon} onClick={() => moveDate(-1)} />
+          <ChevronLeft
+            className={styles.arrowIcon}
+            onClick={() => moveDate(-1)}
+          />
           <div className={styles.currentDate}>{formatDateKr(currentDate)}</div>
-          <ChevronRight className={styles.arrowIcon} onClick={() => moveDate(1)} />
+          <ChevronRight
+            className={styles.arrowIcon}
+            onClick={() => moveDate(1)}
+          />
         </div>
 
         {/* 타입 필터 버튼 */}
@@ -88,8 +120,9 @@ const EverydayDetail = ({ currentDate, setCurrentDate, formatDateKr, fetchData, 
           {Object.entries(typeMap).map(([key, info]) => (
             <div
               key={key}
-              className={`${styles.filterButton} ${key === "전체" ? styles.fullButton : ""
-                } ${activeType === key ? styles.filterButtonActive : ""}`}
+              className={`${styles.filterButton} ${
+                key === "전체" ? styles.fullButton : ""
+              } ${activeType === key ? styles.filterButtonActive : ""}`}
               onClick={() => handleTypeClick(key)}
             >
               {info.icon && (
@@ -133,7 +166,7 @@ const EverydayDetail = ({ currentDate, setCurrentDate, formatDateKr, fetchData, 
           exit="hidden"
         >
           {targetDayData
-            .filter(item => {
+            .filter((item) => {
               if (activeType === "전체") return true;
 
               if (activeType === "배변") {
@@ -151,8 +184,8 @@ const EverydayDetail = ({ currentDate, setCurrentDate, formatDateKr, fetchData, 
                 baseTypeKey === "toilet"
                   ? "배변"
                   : Object.keys(reverseTypeMap).find(
-                    k => reverseTypeMap[k] === baseTypeKey
-                  );
+                      (k) => reverseTypeMap[k] === baseTypeKey
+                    );
 
               const info = typeMap[mappedType];
               const Icon = info.icon;
@@ -166,7 +199,7 @@ const EverydayDetail = ({ currentDate, setCurrentDate, formatDateKr, fetchData, 
                 const d = new Date(iso);
                 return d.toLocaleString("ko-KR", {
                   hour: "2-digit",
-                  minute: "2-digit"
+                  minute: "2-digit",
                 });
               };
 
@@ -214,10 +247,37 @@ const EverydayDetail = ({ currentDate, setCurrentDate, formatDateKr, fetchData, 
                     </div>
                   </div>
 
-                  <div className={styles.actionButtonWrapper}>
-                    <button>삭제</button>
-                    <button onClick={() => { handleUpdate(item) }}>수정</button>
-                    <MoreVertical className={styles.actionIcon} />
+                  <div
+                    className={styles.actionButtonWrapper}
+                    ref={(el) => (dropdownRefs.current[i] = el)}
+                  >
+                    <MoreVertical
+                      className={styles.actionIcon}
+                      onClick={() => toggleDropdown(i)}
+                    />
+
+                    {openDropdownIndex === i && (
+                      <div className={styles.dropdownMenu}>
+                        <div
+                          className={styles.dropdownItem}
+                          onClick={() => {
+                            handleUpdate(item);
+                            setOpenDropdownIndex(null);
+                          }}
+                        >
+                          수정
+                        </div>
+                        <div
+                          className={styles.dropdownItem}
+                          onClick={() => {
+                            console.log("삭제");
+                            setOpenDropdownIndex(null);
+                          }}
+                        >
+                          삭제
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </motion.div>
               );
@@ -225,9 +285,12 @@ const EverydayDetail = ({ currentDate, setCurrentDate, formatDateKr, fetchData, 
 
           {/* 로그 없을 경우 */}
           {targetDayData.length === 0 && (
-            <div className={styles.noLogMessage}>
-              현재 {activeType} 기록이 없습니다. 상단의 '기록 추가' 버튼을
-              눌러주세요.
+            <div className={styles.emptyMessage}>
+              <Inbox className={styles.emptyIcon} />
+              <div>현재 {activeType} 기록이 없습니다</div>
+              <p className={styles.emptySubText}>
+                상단의 '기록 추가' 버튼을 눌러주세요
+              </p>
             </div>
           )}
         </motion.div>

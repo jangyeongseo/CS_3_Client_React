@@ -26,6 +26,8 @@ const BabySideNavi = ({ onClose }) => {
     ) {
       caxios.delete("/user/secession").then((resp) => {
         alert("탈퇴가 완료되었습니다.\n그동안 이용해주셔서 감사합니다.");
+        navi("/");
+        logout();
       });
     }
   };

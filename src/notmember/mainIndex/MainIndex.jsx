@@ -26,7 +26,7 @@ const MainIndex = ({ alerts, setAlerts }) => {
   const { isLogin } = useAuthStore((state) => state);
   const location = useLocation();
 
-  /** -----------------------------
+  /* -----------------------------
    *  모든 Hook은 조건문 밖 최상단
   --------------------------------*/
   const [isLoading, setIsLoading] = useState(true);
@@ -38,7 +38,7 @@ const MainIndex = ({ alerts, setAlerts }) => {
   // Information 페이지 여부 (비로그인 + "/")
   const isInfoPage = !isLogin && location.pathname === "/";
 
-  /** -----------------------------
+  /* -----------------------------
    *  로딩 처리 useEffect
   --------------------------------*/
   useEffect(() => {
@@ -46,7 +46,7 @@ const MainIndex = ({ alerts, setAlerts }) => {
     return () => clearTimeout(timer);
   }, []);
 
-  /** -----------------------------
+  /* -----------------------------
    *  경로 변화 감지
   --------------------------------*/
   useEffect(() => {
@@ -66,8 +66,8 @@ const MainIndex = ({ alerts, setAlerts }) => {
     }
   }, [location, isLogin]);
 
-  /** -----------------------------
-   *  헤더 높이 자동 측정 (반응형 대응)
+  /* -----------------------------
+   *  헤더 높이 자동 측정
   --------------------------------*/
   useEffect(() => {
     if (!headerRef.current) return;
@@ -84,7 +84,7 @@ const MainIndex = ({ alerts, setAlerts }) => {
     return () => observer.disconnect();
   }, []);
 
-  /** -----------------------------
+  /* -----------------------------
    * 노란 배경을 써야 하는 경로
   --------------------------------*/
   const yellowBackgroundPaths = ["/", "/babyIndex", "/babymypage"];
@@ -101,7 +101,7 @@ const MainIndex = ({ alerts, setAlerts }) => {
     ? styles.layoutMainYellow
     : styles.layoutMain;
 
-  /** -----------------------------
+  /* -----------------------------
    *  Hook 사용 후 return 허용
   --------------------------------*/
   if (isLoading) {

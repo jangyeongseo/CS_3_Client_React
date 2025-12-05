@@ -12,7 +12,7 @@ export function UseBoardWrite() {
     const location = useLocation();
     const isEditMode = location.state?.mode == "edit";
     const editBoardSeq = location.state?.board_seq;
-
+    const [isSubmitting, setIsSubmitting] = useState(false); // 작성 중 / 업로드 중 여부
 
 
     // ----------- 버튼 상태변수 -----------
@@ -59,8 +59,15 @@ export function UseBoardWrite() {
 
     // 파일 선택 핸들러 :FileList 객체를 배열로 변환
     const handleFileSelect = (event) => {
-        const files = Array.from(event.target.files);// 기존 파일 목록에 새 파일을 추가
-        setUploadedFiles((prevFiles) => [...prevFiles, ...files]);// 파일 선택 입력 필드를 초기화하여 동일한 파일을 다시 선택할 수 있도록 함
+        const newFiles = Array.from(event.target.files);
+
+        if (uploadedFiles.length + newFiles.length > 7) {
+            alert("파일은 최대 7개까지 가능합니다.");
+            event.target.value = null;
+            return;
+        }
+
+        setUploadedFiles((prev) => [...prev, ...newFiles]);
         event.target.value = null;
     };
 
@@ -182,7 +189,13 @@ export function UseBoardWrite() {
 
     //작성완료
     const handleComplete = async () => {
+        if (isSubmitting) return; // 서버 전송중이라면 버튼 차단
+        setIsSubmitting(true);
         if (!editorInstance) return;
+        if (titleRef.current?.value.length > 30) {
+            alert("제목은 최대 30글자까지 가능합니다.");
+            return;
+        }
 
         const title = titleRef.current?.value || "";
 
@@ -328,6 +341,7 @@ export function UseBoardWrite() {
 
                 form.append("deletedFiles", JSON.stringify(deletedFiles));
                 await caxios.put("/board/update", form);
+                setIsSubmitting(false);
                 alert("수정이 완료되었습니다!")
                 navigate(-1);
 
@@ -342,6 +356,7 @@ export function UseBoardWrite() {
                 await caxios.post("/board/write", form)
                     .then(resp => {
                         console.log(resp);
+                        setIsSubmitting(false);
                         alert("작성이 완료되었습니다!")
                         navigate("/board");
                     })
@@ -351,9 +366,6 @@ export function UseBoardWrite() {
                 alert("업로드에 실패했습니다. 다시 시도하세요");
             }
         }
-
-
-
     };
 
     ///-----------------------useEffect 모음
@@ -500,5 +512,6 @@ export function UseBoardWrite() {
         isOpen,
         selected,
         selectedVisibility,
+        isSubmitting
     };
 }
